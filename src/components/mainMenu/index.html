@@ -1,0 +1,14 @@
+<Menu width="auto" :active-name="$store.state.menuActiveName" :open-names="$store.state.menuOpenNames">
+  <div v-for="(item,k) in data" key="menuKey + k">
+    <Submenu v-if="item.children" :name="menuKey + k" @click.native="onSelect(item)">
+      <template slot="title">
+        <Icon :type="item.icon"></Icon>
+        {{item.name}}
+      </template>
+      <Menu-item v-for="(child,i) in item.children" key="menuKey + k + '-' + i" @click.native="onSelect(child)" :name="menuKey + k + '-' + i">{{child.name}}</Menu-item>
+    </Submenu>
+    <Menu-item v-if="!item.children" :name="menuKey + k" key="item.name" @click.native="onSelect(item)">
+      <Icon :type="item.icon"></Icon> {{item.name}}
+    </Menu-item>
+  </div>
+</Menu>

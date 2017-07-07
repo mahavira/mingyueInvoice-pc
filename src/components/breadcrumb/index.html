@@ -1,0 +1,4 @@
+<Breadcrumb>
+  <Breadcrumb-item href="/">首页</Breadcrumb-item>
+  <Breadcrumb-item v-for="(item,index) in breadcrumb" key="index" :href="item.path?item.path:''">{{item.name}}</Breadcrumb-item>
+</Breadcrumb>
