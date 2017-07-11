@@ -7,7 +7,7 @@ import store from './store'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import './assets/style.less'
-import './assets/iviewTheme/index.less'
+import './assets/iview-theme.less'
 Vue.use(iView)
 Vue.config.productionTip = false
 import http from './http'

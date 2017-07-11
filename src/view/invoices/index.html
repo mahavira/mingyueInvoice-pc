@@ -1,0 +1,24 @@
+<section>
+  <div style="margin-bottom:20px;">
+    <Button type="primary" shape="circle" icon="ios-upload-outline" @click="$router.push('/uploader')">上传发票</Button>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>金额</th>
+        <th>是否已打印</th>
+        <th>时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>1000</td>
+        <td>是</td>
+        <td>2012-12-12</td>
+      </tr>
+    </tbody>
+  </table>
+  <Page style="float:right" :total="40" size="small" show-elevator></Page>
+</section>

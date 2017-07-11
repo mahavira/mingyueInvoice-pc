@@ -21,7 +21,8 @@ const store = new Vuex.Store({
       let activeName = ''
       let openNames = []
       state.menu.forEach((n, i) => {
-        if (n.path === route.path || (n.match && n.match.indexOf(route.name))) {
+        console.log(n.path, route.path)
+        if (n.path === route.path || (n.match && n.match.indexOf(route.name) >= 0)) {
           activeName = i + ''
         } else if (n.children) {
           n.children.forEach((m, j) => {

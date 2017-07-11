@@ -12,6 +12,14 @@
   }
   .layout-ceiling .logo img{
     height: 50px;
+    display: block
+  }
+  .layout-ceiling .logo-title{
+    float: left;
+    font-size: 18px;
+    margin-left: 15px;
+    font-weight: 400;
+    line-height: 50px;
   }
   .layout-ceiling-main {
     float: right;
@@ -37,6 +45,7 @@
 
   .layout-container {
     padding: 20px;
+    margin-bottom: 50px;
   }
   .layout-breadcrumb {
     padding: 10px 15px 0;
@@ -58,10 +67,10 @@
 
 .layout-footer{
   text-align: center;
-  padding: 10px 0 20px;
 }
 
 .layout-footer-bottom {
   background: #F3F3F3;
   color: #9ea7b4;
+  padding: 20px;
 }

@@ -1,0 +1,21 @@
+<Card class="register">
+  <h2 slot="title" style="text-align:center">注册</h2>
+  <Form :model="formItem" :label-width="90" style="padding: 20px;">
+    <Form-item label="手机号">
+      <Input v-model="formItem.input" placeholder="手机号码"></Input>
+    </Form-item>
+    <Form-item label="手机验证码">
+      <Row>
+        <Col span="15">
+        <Input v-model="formItem.input" placeholder="4位数数字"></Input>
+        </Col>
+        <Col span="8" offset="1">
+        <a type="ghost">获取验证码</a>
+        </Col>
+      </Row>
+    </Form-item>
+    <Form-item style="margin-bottom:5px">
+      <Button type="primary" style="width:140px" long @click="submit">下一步</Button>
+    </Form-item>
+  </Form>
+</Card>

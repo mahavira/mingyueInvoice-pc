@@ -1,5 +1,5 @@
 export default {
-  name: 'ViewPublish',
+  name: 'ViewAllInvoices',
   data () {
     return {
     }

@@ -1,30 +1,26 @@
 export default [{
-  name: '首页',
-  path: '/home',
-  icon: 'ios-home-outline'
+  name: '我的发票',
+  path: '/invoices',
+  icon: 'ios-albums-outline'
 }, {
-  name: '发表',
-  path: '/publish',
-  icon: 'edit'
+  name: '上传发票',
+  icon: 'ios-upload-outline',
+  path: '/uploader',
+  match: ['guide']
 }, {
-  name: '管理',
-  icon: 'ios-paper-outline',
-  children: [{
-    name: '内容管理',
-    path: '/manage/content'
-  }, {
-    name: '工作室管理',
-    path: '/manage/studio',
-    match: ['manageStudioId'] // 如匹配路由name也可激活<Menu:activeName>
-  }, {
-    name: '广告管理',
-    path: '/manage/ad'
-  }]
+  name: '发票信息管理',
+  path: '/allInvoices',
+  icon: 'ios-list-outline'
 }, {
-  name: '设置',
+  name: '账号设置',
   icon: 'ios-gear-outline',
   children: [{
-    name: '账号信息',
-    path: '/settings/account'
+    name: '我的信息',
+    icon: 'ios-settings',
+    path: '/settings',
+  }, {
+    name: '修改密码',
+    icon: 'ios-locked-outline',
+    path: '/password'
   }]
 }]

@@ -1,0 +1,11 @@
+<Form :model="formItem" :label-width="90" style="width: 400px;">
+  <Form-item label="旧密码">
+    <Input v-model="formItem.input" placeholder="旧密码" type="password"></Input>
+  </Form-item>
+  <Form-item label="新密码">
+    <Input v-model="formItem.input" placeholder="新密码" type="password"></Input>
+  </Form-item>
+  <Form-item>
+    <Button type="primary" style="width:140px" long >提交</Button>
+  </Form-item>
+</Form>

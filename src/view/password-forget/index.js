@@ -1,7 +1,8 @@
 export default {
-  name: 'ViewSettingsAccount',
+  name: 'ViewPassword-forget',
   data () {
     return {
+      formItem: {}
     }
   },
   methods: {
