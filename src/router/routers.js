@@ -88,6 +88,5 @@ export default [
         component: require('@/view/guide/index.vue')
       },
     ]
-
-  },
+  }
 ]
