@@ -10,10 +10,9 @@ import './assets/style.less'
 import './assets/iview-theme.less'
 Vue.use(iView)
 Vue.config.productionTip = false
-import http from './http'
+import './http'
 import './directive'
 import './filtres'
-Vue.prototype.$http = http
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

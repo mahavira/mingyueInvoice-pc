@@ -1,11 +1,10 @@
-import axios from 'axios'
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 import env from '../config/env'
-
-//const ajaxUrl = env === 'development' ? 'http://127.0.0.1:8080' : env === 'production' ? 'https://www.url.com' : 'https://debug.url.com'
-const ajaxUrl = env === 'development' ? 'http://localhost:8080' : env === 'production' ? 'https://www.url.com' : 'https://debug.url.com'
-var ajax = axios.create({
-  baseURL: ajaxUrl,
-  timeout: 30000
-})
-
-export default ajax
+const ajaxUrl = env === 'development' ? 'http://localhost:8080/project_dzff/' : env === 'production' ? 'http://120.92.45.7/project_dzff/' : 'https://debug.url.com'
+Vue.http.options.root = ajaxUrl
+// Vue.http.headers.common['Content-Type'] = 'application/json;charset=utf-8'
+// Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk'
+Vue.http.options.emulateJSON = true
+// Vue.http.options.emulateHTTP = true

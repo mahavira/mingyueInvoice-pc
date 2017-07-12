@@ -35,7 +35,7 @@ export default [
     name: 'main',
     path: '/',
     meta: {
-      title: 'undefined'
+      title: ''
     },
     component: require('@/view/index.vue'),
     children: [

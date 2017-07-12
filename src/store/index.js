@@ -7,7 +7,8 @@ const store = new Vuex.Store({
     menu: menu,
     menuActiveName: '',
     menuOpenNames: [],
-    breadcrumb: []
+    breadcrumb: [],
+    userinfo: {}
   },
   getters: {
   },
@@ -21,7 +22,6 @@ const store = new Vuex.Store({
       let activeName = ''
       let openNames = []
       state.menu.forEach((n, i) => {
-        console.log(n.path, route.path)
         if (n.path === route.path || (n.match && n.match.indexOf(route.name) >= 0)) {
           activeName = i + ''
         } else if (n.children) {
