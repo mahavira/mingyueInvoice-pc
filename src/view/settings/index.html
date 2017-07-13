@@ -1,18 +1,17 @@
-<Form :model="formItem" :label-width="90" style="width:400px;">
-  <Form-item label="表示名称">
-    <Input v-model="formItem.input" placeholder=""></Input>
+<Form  ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="90" style="width:400px;">
+  <Form-item label="表示名称" prop="name">
+    <Input v-model="formValidate.name" placeholder=""></Input>
   </Form-item>
-  <Form-item label="主管财务" >
-    <Select placeholder="请选择所在地">
-        <Option value="beijing">北京市</Option>
-        <Option value="shanghai">上海市</Option>
-        <Option value="shenzhen">深圳市</Option>
+  <Form-item label="主管财务" prop="financeUserId">
+    <Select placeholder="请选择所在地" v-model="formValidate.financeUserId">
+        <Option value="">请选择</Option>
+        <Option v-for="item in financeUsers" key="item.id" :value="item.id" >{{item.name}}</Option>
     </Select>
   </Form-item>
-  <Form-item label="邮箱">
-    <Input v-model="formItem.input" placeholder=""></Input>
+  <Form-item label="邮箱" prop="email">
+    <Input v-model="formValidate.email" placeholder=""></Input>
   </Form-item>
   <Form-item style="margin-bottom:5px;">
-    <Button type="primary" style="width:140px" long>提交</Button>
+    <Button type="primary" style="width:140px" long :loading="loading" @click="handleSubmit('formValidate')">保存</Button>
   </Form-item>
 </Form>

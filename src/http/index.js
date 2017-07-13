@@ -6,5 +6,10 @@ const ajaxUrl = env === 'development' ? 'http://localhost:8080/project_dzff/' : 
 Vue.http.options.root = ajaxUrl
 // Vue.http.headers.common['Content-Type'] = 'application/json;charset=utf-8'
 // Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk'
+
+Vue.http.headers.common['token'] = '-----1-----1-----'
 Vue.http.options.emulateJSON = true
+Vue.http.options.body = {
+  aaa: 123
+}
 // Vue.http.options.emulateHTTP = true

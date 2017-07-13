@@ -1,7 +1,7 @@
 let util = {}
-let title = '明阅电子发票'
+import conf from '../config'
 util.title = function (t) {
-  t = t ? t + ' - ' + title : title
+  t = t ? t + ' - ' + conf.title : conf.title
   window.document.title = t
 }
 export default util

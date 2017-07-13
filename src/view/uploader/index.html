@@ -1,6 +1,6 @@
 <section style="width:500px;">
-  <Input type="textarea" :autosize="{minRows: 4,maxRows: 5}" placeholder="请复制电子发票链接地址粘贴在此处，提交上传！"></Input>
-  <Button type="primary" style="width:200px;margin-top:20px;" long>提交</Button>
+  <Input type="textarea" :autosize="{minRows: 4,maxRows: 5}" v-model="link" placeholder="请复制电子发票链接地址粘贴在此处，提交上传！"></Input>
+  <Button type="primary" style="width:200px;margin-top:20px;" long  @click="handleSubmit()">提交</Button>
   <br>
   <br>
   <router-link to="/guide">电子发票上传方法</router-link>

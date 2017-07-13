@@ -8,17 +8,18 @@ const store = new Vuex.Store({
     menuActiveName: '',
     menuOpenNames: [],
     breadcrumb: [],
-    userinfo: {}
+    userinfo: {},
+    financeUsers: []
   },
   getters: {
   },
   mutations: {
-    breadcrumb (state, path) {
+    breadcrumb(state, path) {
       var result = []
       recursiveBreadcrumb('path', path, state.menu, 0, result)
       state.breadcrumb = result
     },
-    menu (state, route) {
+    menu(state, route) {
       let activeName = ''
       let openNames = []
       state.menu.forEach((n, i) => {
@@ -36,14 +37,24 @@ const store = new Vuex.Store({
       state.menuActiveName = activeName
       state.menuOpenNames = [...openNames]
     },
-    set (state, data) {
+    set(state, data) {
       Object.assign(state, data)
     }
   },
   actions: {
+    fetchFinanceUsers({ commit }) {
+      Vue.http.post('app/login/getFinanceUsers', { idCode: 1048577 }).then(req => {
+        if (req.res_code === 200) {
+          commit('set', {
+            financeUsers: req.res_data
+          })
+        }
+      }, e => {
+      })
+    }
   }
 })
-function recursiveBreadcrumb (key, val, data, index, result) {
+function recursiveBreadcrumb(key, val, data, index, result) {
   for (var i = 0, l = data.length; i < l; i++) {
     var e = data[i]
     if (e[key] && val === e[key]) {

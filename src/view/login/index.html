@@ -1,7 +1,7 @@
 <Card class="login">
   <img src="../../assets/logo.png" style="width: 80px;margin-top:50px;">
-  <h3 style="margin: 20px 0 50px;">欢迎使用明阅电子发票助手</h3>
-  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" style="padding: 20px;">
+  <h3 style="margin: 20px 0 50px;">欢迎使用{{$conf.title}}助手</h3>
+  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="67" style="padding: 20px;">
     <Form-item label="用户名" prop="username">
       <Input v-model="formValidate.username" placeholder="手机号码/邮箱"></Input>
     </Form-item>

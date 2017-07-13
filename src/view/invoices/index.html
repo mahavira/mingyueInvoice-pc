@@ -12,13 +12,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>1000</td>
-        <td>是</td>
-        <td>2012-12-12</td>
+      <tr v-for="item in data" key="">
+        <td>{{item.name}}</td>
+        <td>{{item.money}}</td>
+        <td>{{item.isPrint?'未打印':'已打印'}}</td>
+        <td>{{item.datetime}}</td>
       </tr>
     </tbody>
   </table>
-  <Page style="float:right" :total="40" size="small" show-elevator></Page>
+  <Page style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
 </section>

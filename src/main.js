@@ -13,6 +13,8 @@ Vue.config.productionTip = false
 import './http'
 import './directive'
 import './filtres'
+import conf from './config'
+Vue.prototype.$conf = conf
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
