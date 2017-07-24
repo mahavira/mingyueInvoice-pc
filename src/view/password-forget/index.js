@@ -17,7 +17,7 @@ export default {
         smsCode: [
           { required: true, message: '验证码不能为空', trigger: 'blur' },
           { len: 4, message: '验证码为4位数字', trigger: 'blur' },
-          { validator: this.validateSmsCode, trigger: 'blur' }
+          // { validator: this.validateSmsCode, trigger: 'blur' }
         ]
       }
     }
@@ -44,7 +44,7 @@ export default {
       })
     },
     validateSmsCode(rule, value, callback) {
-      this.$http.post('app/smsCode', this.formValidate).then((data) => {
+      this.$http.post('app/xxxx', this.formValidate).then((data) => {
         if (data.res_code === 200) callback()
         else callback(new Error('验证码错误'))
       }, function (xhr, type, errorThrown) {
@@ -52,7 +52,7 @@ export default {
       })
     },
     fetchSmsCode() {
-      this.$http.post('app/fetchSmsCode', this.formValidate)
+      this.$http.post('app/sms/sendSmsCode', this.formValidate)
       this.countdownStart = true
       this.countdown()
     },

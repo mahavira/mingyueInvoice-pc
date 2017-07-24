@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import menu from '../config/menu'
+var userinfo = localStorage.getItem('userinfo')
+userinfo = JSON.parse(userinfo)
+if (!userinfo || typeof userinfo != 'object') {
+  userinfo = {}
+}
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
@@ -8,7 +13,7 @@ const store = new Vuex.Store({
     menuActiveName: '',
     menuOpenNames: [],
     breadcrumb: [],
-    userinfo: {},
+    userinfo: userinfo,
     financeUsers: []
   },
   getters: {
@@ -39,6 +44,10 @@ const store = new Vuex.Store({
     },
     set(state, data) {
       Object.assign(state, data)
+    },
+    setUserinfo(state, value) {
+      state.userinfo = value
+      localStorage.setItem('userinfo', JSON.stringify(value))
     }
   },
   actions: {
