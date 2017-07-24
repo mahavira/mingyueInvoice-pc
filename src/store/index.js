@@ -46,16 +46,16 @@ const store = new Vuex.Store({
       Object.assign(state, data)
     },
     setUserinfo(state, value) {
-      state.userinfo = value
-      localStorage.setItem('userinfo', JSON.stringify(value))
+      Object.assign(state.userinfo, value)
+      localStorage.setItem('userinfo', JSON.stringify(state.userinfo))
     }
   },
   actions: {
     fetchFinanceUsers({ commit }) {
-      Vue.http.post('app/login/getFinanceUsers', { idCode: 1048577 }).then(req => {
-        if (req.res_code === 200) {
+      Vue.http.post('app/login/getFinanceUsers', { idCode: 1048577 }).then(({body})=> {
+        if (body.res_code === 200) {
           commit('set', {
-            financeUsers: req.res_data
+            financeUsers: body.res_data
           })
         }
       }, e => {

@@ -10,7 +10,8 @@ export default {
   },
   methods: {
     logout () {
-      
+      localStorage.setItem('userinfo', JSON.stringify({}))
+      window.location.href = '/login'
     }
   },
   created () {},

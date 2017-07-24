@@ -1,7 +1,20 @@
 <section style="width:500px;">
+  <p style="margin-bottom:10px;">链接上传：</p>
   <Input type="textarea" :autosize="{minRows: 4,maxRows: 5}" v-model="link" placeholder="请复制电子发票链接地址粘贴在此处，提交上传！"></Input>
+  <br>
+  <br>
+  <p style="margin-bottom:10px;">文件上传：</p>
+  <Upload
+        type="drag"
+        action="/posts/">
+        <div style="padding: 20px 0">
+            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+            <p>点击或将文件拖拽到这里上传</p>
+        </div>
+    </Upload>
+    <br>
   <Button type="primary" style="width:200px;margin-top:20px;" long  @click="handleSubmit()">提交</Button>
   <br>
-  <br>
+  <br><br>
   <router-link to="/guide">电子发票上传方法</router-link>
 </section>

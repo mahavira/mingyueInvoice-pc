@@ -6,8 +6,8 @@ export default {
       countdownTime: 120,
       countdownStart: false,
       formValidate: {
-        mobile: '18611852267',
-        smsCode: 'xxxx'
+        mobile: '',
+        smsCode: ''
       },
       ruleValidate: {
         mobile: [
@@ -32,8 +32,8 @@ export default {
     },
     fetchRegister(attributes) {
       this.loading = true
-      this.$http.post('app/login/getUserByMobile', this.formValidate).then(req => {
-        if (req.res_code === 200 && req.res_data == "1") {
+      this.$http.post('app/login/getUserByMobile', this.formValidate).then(({body}) => {
+        if (body.res_code === 200 && body.res_data == "1") {
           this.$Message.success('该手机已经被注册!')
           this.$router.push('/invoices')
         }
@@ -44,8 +44,8 @@ export default {
       })
     },
     validateSmsCode(rule, value, callback) {
-      this.$http.post('app/xxxx', this.formValidate).then((data) => {
-        if (data.res_code === 200) callback()
+      this.$http.post('app/xxxx', this.formValidate).then(({body}) => {
+        if (body.res_code === 200) callback()
         else callback(new Error('验证码错误'))
       }, function (xhr, type, errorThrown) {
         callback(new Error('验证码错误'))

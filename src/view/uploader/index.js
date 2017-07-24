@@ -15,12 +15,13 @@ export default {
       this.$http.post('app/bill/uploadUrl', {
         billUrl: this.link,
         financeId: this.$store.state.userinfo.financeId
-      }).then(req => {
-        if (req.res_code === 200) {
-          this.$Message.error('上传成功!')
+      }).then(({body}) => {
+        if (body.res_code === 200) {
+          this.$Message.success('上传成功!')
           this.link = ''
+          this.$router.push('/invoices')
         } else {
-          this.$Message.error(req.res_data ? req.res_data : '上传失败!')
+          this.$Message.error(body.res_data ? body.res_data : '上传失败!')
         }
         this.loading = false
       }, e => {

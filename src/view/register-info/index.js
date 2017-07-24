@@ -7,11 +7,11 @@ export default {
       loading: false,
       formValidate: {
         idCode: '',
-        name: 'xxxx',
+        name: '',
         financeUserId: '',
-        email: 'xxxx',
-        password: 'xxxx',
-        passwordAgain: 'xxxx'
+        email: '',
+        password: '',
+        passwordAgain: ''
       },
       ruleValidate: {
         idCode: [
@@ -53,14 +53,14 @@ export default {
         smsCode: userinfo.smsCode,
         mobile: userinfo.mobile
       })
-      this.$http.post('app/login/register', attributes).then((req) => {
-        if (req.res_code === 200) {
-          this.$Message.error('注册成功！')
+      this.$http.post('app/login/register', attributes).then(({body}) => {
+        if (body.res_code === 200) {
+          this.$Message.success('注册成功！')
           setTimeout(() => {
             this.$router.push('/login')
           }, 1500)
         } else {
-          this.$Message.error(req.res_data ? req.res_data : '注册失败')
+          this.$Message.error(body.res_data ? body.res_data : '注册失败')
         }
         this.loading = false
       }, (xhr) => {

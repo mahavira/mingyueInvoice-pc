@@ -5,8 +5,8 @@ export default {
       countdownTime: 120,
       countdownStart: false,
       formValidate: {
-        mobile: '18611852267',
-        smsCode: 'xxxx'
+        mobile: '',
+        smsCode: ''
       },
       ruleValidate: {
         mobile: [
@@ -33,10 +33,10 @@ export default {
     validateMobileExist(rule, value, callback) {
       this.$http.post('app/login/getUserByMobile', {
         mobile: this.formValidate.mobile
-      }).then(req => {
-        if (req.res_code === 200) {
-          if (req.res_data == "0") callback()
-          else if (req.res_data == "1") callback(new Error('该手机已经被注册'))
+      }).then(({body}) => {
+        if (body.res_code === 200) {
+          if (body.res_data == "0") callback()
+          else if (body.res_data == "1") callback(new Error('该手机已经被注册'))
         } else {
           callback(new Error('请求错误！'))
         }
@@ -46,8 +46,8 @@ export default {
     },
     validateSmsCode() {
       this.loading = true
-      this.$http.post('app/xxxx', this.formValidate).then((data) => {
-        if (data.res_code === 200) {
+      this.$http.post('app/xxxx', this.formValidate).then(({body}) => {
+        if (body.res_code === 200) {
           this.$store.commit('set', {
             userinfo: Object.assign({}, this.$store.state.userinfo, this.formValidate)
           })
