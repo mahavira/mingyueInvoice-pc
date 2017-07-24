@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>iView</title>
+    <title>明阅电子发票</title>
     <link rel="shortcut icon" href="https://file.iviewui.com/file/favicon.ico">
     <link rel="stylesheet" href="./style.css">
   </head>
@@ -183,26 +183,26 @@
       <div class="message-warp">
         <h2 class="title">在线留言</h2>
         <p class="text">请填写关于您的有关信息，我们会第一时间联系您</p>
-        <form action="/">
+        <form action="/" method="post" id="form">
           <div class="row">
             <div class="col-6">
-              <input class="input" type="text" placeholder="请输入您的姓名"/>
+              <input class="input" name="touristName" type="text" placeholder="请输入您的姓名"/>
             </div>
             <div class="col-6">
-              <input class="input" type="text" placeholder="请输入您的手机号"/>
+              <input class="input" name="mobile" type="text" placeholder="请输入您的手机号"/>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <input class="input" type="text" placeholder="请输入您的邮箱"/>
+              <input class="input" name="email" type="text" placeholder="请输入您的邮箱"/>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <textarea class="input"  name="" id="" cols="30" rows="10" placeholder="请输入留言内容"></textarea>
+              <textarea class="input" name="touristContent" cols="30" rows="10" placeholder="请输入留言内容"></textarea>
             </div>
           </div>
-          <input type="submit" class="input submit" value="提交">
+          <input type="submit" class="input submit" id="submit" value="提交">
         </form>
       </div>
     </div>
@@ -214,5 +214,59 @@
       </div>
       <p class="text">Copyright © 2012-2017 www.bj-dbd.com All Rights Reserved. 网站备案编号：京ICP备13008266号 北京栋邦达科技有限公司</p>
     </div>
+
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      $(function(){
+        $('#form').submit(function(){
+          var data = $("#form").serializeArray()
+          var form = {}
+          for (var i in data) {
+            var item = data[i]
+            var name = item.name
+            var value = item.value
+            value = value.replace(/(^\s*)|(\s*$)/g, "")
+            if (name === 'touristName') {
+              if (!value) {
+                alert('请输入姓名！')
+                return false
+              }
+            } else if (name === 'mobile') {
+              if (!value) {
+                alert('请输入手机号！')
+                return false
+              } else if (!/^1\d{10}$/.test(value)) {
+                alert('手机号格式不正确！')
+                return false
+              }
+            } else if (name === 'email') {
+              if (!value) {
+                alert('请输入邮箱！')
+                return false
+              } else if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(value)) {
+                alert('邮箱格式不正确！')
+                return false
+              }
+            } else if (name === 'touristContent') {
+              if (!value) {
+                alert('请输入留言内容！')
+                return false
+              }
+            }
+            form[name] = value
+          }
+          $.post("/app/message/addTouristMsg", form, function (data) {
+            if (data.res_code === 200) {
+              alert('提交成功！')
+            } else {
+              alert('提交失败！')
+            }
+          }, function () {
+            alert('提交失败！')
+          })
+          return false
+        })
+      })
+    </script>
   </body>
 </html>
