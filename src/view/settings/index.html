@@ -2,8 +2,8 @@
   <Form-item label="表示名称" prop="name">
     <Input v-model="formValidate.name" placeholder=""></Input>
   </Form-item>
-  <Form-item label="主管财务" prop="financeUserId">
-    <Select placeholder="请选择所在地" v-model="formValidate.financeUserId">
+  <Form-item label="主管财务" prop="financeId">
+    <Select placeholder="请选择所在地" v-model="formValidate.financeId">
         <Option value="">请选择</Option>
         <Option v-for="item in financeUsers" key="item.id" :value="item.id" >{{item.name}}</Option>
     </Select>

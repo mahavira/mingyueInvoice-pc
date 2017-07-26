@@ -4,8 +4,8 @@ export default {
     return {
       loading: false,
       formValidate: {
-        username: '18611852267',
-        password: '123456'
+        username: '',
+        password: ''
       },
       ruleValidate: {
         username: [

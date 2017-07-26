@@ -28,11 +28,11 @@ export default {
     },
     fetchLogin(attributes) {
       this.loading = true
-      this.$http.post('app/user/updateUserPassword', this.formValidate).then(req => {
-        if (req.res_code === 200) {
+      this.$http.post('app/user/updateUserPassword', this.formValidate).then(({body}) => {
+        if (body.res_code === 200) {
           this.$Message.success('修改成功!')
         } else {
-          this.$Message.error(req.res_data ? req.res_data : '修改失败!')
+          this.$Message.error(body.res_data ? body.res_data : '修改失败!')
         }
         this.loading = false
       }, e => {

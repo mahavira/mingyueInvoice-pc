@@ -5,7 +5,9 @@
   <table class="table" >
     <thead>
       <tr>
-        <th><Checkbox></Checkbox></th>
+        <th>
+          <Checkbox :value="checkedAll" @click.prevent.native="handleCheckAll">全选</Checkbox>
+        </th>
         <th>名称</th>
         <th>金额</th>
         <th>是否已打印</th>
@@ -14,20 +16,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in data" key="item.id">
+      <tr v-if="data.length" v-for="item in data" key="item.id">
         <td>
-          <Checkbox></Checkbox>
+          <Checkbox v-model="checkedAll">全选</Checkbox>
         </td>
         <td>{{item.name}}</td>
         <td>{{item.money}}</td>
         <td>{{item.isPrint?'未打印':'已打印'}}</td>
         <td>{{item.datetime}}</td>
         <td>
-          <a href="javascript:;"><Icon type="ios-printer-outline"></Icon> 打印</a>
-          <a style="margin-left:10px;" href="javascript:;"><Icon type="ios-trash-outline"></Icon> 删除</a>
+          <a href="javascript:;" @click="singlePrint(item)"><Icon type="ios-printer-outline"></Icon> 打印</a>
+          <a style="margin-left:10px;" href="javascript:;" @click="handleDelete(item)"><Icon type="ios-trash-outline"></Icon> 删除</a>
         </td>
+      </tr>
+      <tr v-if="!data.length">
+        <td colspan="6" style="text-align:center;padding:50px 0">无数据</td>
       </tr>
     </tbody>
   </table>
-  <Page style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
+  <Page v-if="data.length" style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
 </section>

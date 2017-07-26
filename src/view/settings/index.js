@@ -4,16 +4,11 @@ export default {
   data() {
     return {
       loading: false,
-      formValidate: {
-        name: 'xxxx',
-        financeUserId: '',
-        email: 'xxxx'
-      },
       ruleValidate: {
         name: [
           { required: true, message: '请输入表示名称', trigger: 'blur' }
         ],
-        financeUserId: [
+        financeId: [
           { required: true, message: '请输入主管财务', trigger: 'blur' }
         ],
         email: [
@@ -27,9 +22,21 @@ export default {
       }
     }
   },
-  computed: mapState({
-    financeUsers: 'financeUsers'
-  }),
+  computed: {
+    ...mapState({
+      financeUsers: 'financeUsers'
+    }),
+    formValidate: {
+      get () {
+        return this.$store.state.userinfo
+      },
+      set (value) {
+        this.$store.commit('set', {
+          userinfo: value
+        })
+      }
+    }
+  },
   methods: {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
@@ -44,11 +51,12 @@ export default {
         id: this.$store.state.userinfo.id
       }, this.formValidate)
       for (var key in this.urls) {
-        this.$http.post(this.urls[key], fields).then(req => {
-          if (req.res_code === 200) {
-            this.$Message.error('修改成功')
+        this.$http.post(this.urls[key], fields).then(({body}) => {
+          if (body.res_code === 200) {
+            this.$Message.success('修改成功')
+            this.$store.commit('setUserinfo', {})
           } else {
-            this.$Message.error(req.res_data ? req.res_data : '修改失败')
+            this.$Message.error(body.res_data ? body.res_data : '修改失败')
           }
           this.loading = false
         }, (xhr) => {
@@ -56,7 +64,6 @@ export default {
           this.loading = false
         })
       }
-
     }
   },
   created() {

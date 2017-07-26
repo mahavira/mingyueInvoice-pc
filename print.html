@@ -1,0 +1,20 @@
+ <iframe id="iPrint" style='height:0; width:0;' ></iframe>
+
+<input type="button" value="Print" onclick="PrintPdf()"/>
+<script type="text/JavaScript">
+function PrintPdf() {
+           if (document.getElementById("iPrint").attachEvent) {
+
+                document.getElementById("iPrint").attachEvent("onload", function () { document.getElementById("iPrint").focus(); document.getElementById("iPrint").contentWindow.print(); });
+
+
+            } else {
+                document.getElementById("iPrint").onload = function () {
+                    document.getElementById("iPrint").focus(); document.getElementById("iPrint").contentWindow.print();
+                }
+            }
+            document.getElementById("iPrint").src = "./print-iframe.html?action=toPdf";
+
+}
+
+</script>

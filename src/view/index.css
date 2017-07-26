@@ -1,7 +1,6 @@
   .layout {
     position: relative;
   }
-
   .layout-ceiling {
     padding: 10px 20px;
     overflow: hidden;
@@ -26,7 +25,6 @@
     line-height: 50px;
     vertical-align: middle
   }
-
   .layout-ceiling-main a {
     color: #9ba7b5;
     float: left;
@@ -40,9 +38,6 @@
     float: left;
     margin-right: 20px;
   }
-
-
-
   .layout-container {
     padding: 20px;
     margin-bottom: 50px;
@@ -50,20 +45,15 @@
   .layout-breadcrumb {
     padding: 10px 15px 0;
   }
-
   .layout-content {
     min-height: 200px;
     margin: 0 15px;
-    overflow: hidden;
     background: #fff;
     border-radius: 4px;
   }
-
   .layout-content-main {
     padding: 0 20px;
   }
-
-
 
 .layout-footer{
   text-align: center;
