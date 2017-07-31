@@ -7,7 +7,8 @@ export default {
       total: 0,
       pageSize: 10,
       pageNo: 1,
-      checkedIds: []
+      checkedIds: [],
+      pdfUrl: '/static/monitoring.pdf'
     }
   },
   computed: {
@@ -17,8 +18,12 @@ export default {
     }
   },
   methods: {
-    batchPrint () {},
-    singlePrint (item) {},
+    batchPrint () {
+      this.onPrint()
+    },
+    singlePrint (item) {
+      this.onPrint()
+    },
     handleDelete (item) {},
     fetch(attributes) {
       this.$http.post('app/bill/getMyBills', {
@@ -49,6 +54,9 @@ export default {
       } else {
         this.checkedIds = []
       }
+    },
+    onPrint () {
+      this.$refs.printIframe.contentWindow.print()
     }
   },
   created () {},

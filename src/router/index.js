@@ -6,7 +6,7 @@ import routers from './routers'
 import store from '../store'
 Vue.use(Router)
 const RouterConfig = {
-  mode: 'history',
+  mode: 'hash', // history
   routes: routers
 }
 const router = new Router(RouterConfig)

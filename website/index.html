@@ -255,12 +255,12 @@
           }
           $.post("/app/message/addTouristMsg", form, function (data) {
             if (data.res_code === 200) {
-              alert('提交成功！')
+              alert('感谢您的支持！')
             } else {
-              alert('提交失败！')
+              alert(data.res_data || '提交失败！')
             }
           }, function () {
-            alert('提交失败！')
+            alert(data.res_data || '提交失败！')
           })
           return false
         })

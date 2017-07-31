@@ -35,4 +35,5 @@
     </tbody>
   </table>
   <Page v-if="data.length" style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
+  <iframe style="display:none" ref="printIframe" :src="pdfUrl"></iframe>
 </section>
