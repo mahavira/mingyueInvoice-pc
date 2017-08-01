@@ -55,16 +55,25 @@ export default {
       })
       this.$http.post('app/login/register', attributes).then(({body}) => {
         if (body.res_code === 200) {
-          this.$Message.success('注册成功！')
+          this.$Notice.success({
+            title: '成功',
+            desc: '注册成功！'
+          })
           setTimeout(() => {
             this.$router.push('/login')
           }, 1500)
         } else {
-          this.$Message.error(body.res_data ? body.res_data : '注册失败')
+          this.$Notice.error({
+            title: '错误',
+            desc: body.res_data ? body.res_data : '注册失败'
+          })
         }
         this.loading = false
       }, (xhr) => {
-        this.$Message.error('注册失败!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '注册失败'
+        })
         this.loading = false
       });
     }

@@ -8,7 +8,10 @@ export default {
   methods: {
     handleSubmit() {
       if (!this.link) {
-        this.$Message.error('请粘贴电子发票链接!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '请粘贴电子发票链接'
+        })
         return
       }
       this.loading = true
@@ -17,15 +20,24 @@ export default {
         financeId: this.$store.state.userinfo.financeId
       }).then(({body}) => {
         if (body.res_code === 200) {
-          this.$Message.success('上传成功!')
+          this.$Notice.success({
+            title: '错误',
+            desc: '上传成功'
+          })
           this.link = ''
           this.$router.push('/invoices')
         } else {
-          this.$Message.error(body.res_data ? body.res_data : '上传失败!')
+          this.$Notice.error({
+            title: '错误',
+            desc: body.res_data ? body.res_data : '上传失败!'
+          })
         }
         this.loading = false
       }, e => {
-        this.$Message.error('上传失败!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '上传失败'
+        })
         this.loading = false
       })
     }

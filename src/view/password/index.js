@@ -30,13 +30,22 @@ export default {
       this.loading = true
       this.$http.post('app/user/updateUserPassword', this.formValidate).then(({body}) => {
         if (body.res_code === 200) {
-          this.$Message.success('修改成功!')
+          this.$Notice.success({
+            title: '成功',
+            desc: '修改成功!'
+          })
         } else {
-          this.$Message.error(body.res_data ? body.res_data : '修改失败!')
+          this.$Notice.error({
+            title: '错误',
+            desc: body.res_data ? body.res_data : '修改失败!'
+          })
         }
         this.loading = false
       }, e => {
-        this.$Message.error('修改失败!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '修改失败!'
+        })
         this.loading = false
       })
     }

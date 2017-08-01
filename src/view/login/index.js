@@ -34,13 +34,22 @@ export default {
         if (body.res_code === 200) {
           this.$store.commit('setUserinfo', body.res_data)
           this.$router.push('/invoices')
-          this.$Message.success('登录成功!')
+          this.$Notice.success({
+            title: '成功',
+            desc: '登录成功'
+          })
         } else {
-          this.$Message.error(body.res_data ? body.res_data : '登录失败!')
+          this.$Notice.error({
+            title: '错误',
+            desc: body.res_data ? body.res_data : '登录失败!'
+          })
         }
         this.loading = false
       }, e => {
-        this.$Message.error('登录失败!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '登录失败!'
+        })
         this.loading = false
       })
     }

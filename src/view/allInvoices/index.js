@@ -34,10 +34,16 @@ export default {
             this.data = body.res_data.list
           }
         } else {
-          this.$Message.error('数据获取失败!')
+          this.$Notice.error({
+            title: '错误',
+            desc: '数据获取失败！'
+          })
         }
       }, e => {
-        this.$Message.error('数据获取失败!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '数据获取失败！'
+        })
       })
     },
     onChange (pageNo) {

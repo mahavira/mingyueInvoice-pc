@@ -53,14 +53,23 @@ export default {
       for (var key in this.urls) {
         this.$http.post(this.urls[key], fields).then(({body}) => {
           if (body.res_code === 200) {
-            this.$Message.success('修改成功')
+            this.$Notice.success({
+              title: '成功',
+              desc: '修改成功'
+            })
             this.$store.commit('setUserinfo', {})
           } else {
-            this.$Message.error(body.res_data ? body.res_data : '修改失败')
+            this.$Notice.error({
+              title: '错误',
+              desc: body.res_data ? body.res_data : '修改失败'
+            })
           }
           this.loading = false
         }, (xhr) => {
-          this.$Message.error('修改失败!')
+          this.$Notice.error({
+            title: '错误',
+            desc: '修改失败'
+          })
           this.loading = false
         })
       }

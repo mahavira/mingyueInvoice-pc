@@ -34,12 +34,18 @@ export default {
       this.loading = true
       this.$http.post('app/login/getUserByMobile', this.formValidate).then(({body}) => {
         if (body.res_code === 200 && body.res_data == "1") {
-          this.$Message.success('该手机已经被注册!')
+          this.$Notice.error({
+            title: '错误',
+            desc: '该手机已经被注册!'
+          })
           this.$router.push('/invoices')
         }
         this.loading = false
       }, e => {
-        this.$Message.error('登录失败!')
+        this.$Notice.error({
+          title: '错误',
+          desc: '登录失败!'
+        })
         this.loading = false
       })
     },
@@ -52,6 +58,19 @@ export default {
       })
     },
     fetchSmsCode() {
+      if (!this.formValidate.mobile) {
+        this.$Notice.error({
+          title: '错误',
+          desc: '请输入手机号码'
+        })
+        return 
+      } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.formValidate.mobile)) {
+        this.$Notice.error({
+          title: '错误',
+          desc: '请输入手机号码'
+        })
+        return 
+      }
       this.$http.post('app/sms/sendSmsCode', this.formValidate)
       this.countdownStart = true
       this.countdown()
