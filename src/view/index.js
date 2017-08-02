@@ -18,7 +18,9 @@ export default {
     }
   },
   created () {
-    
+    if (!this.$store.state.userinfo.token) {
+      window.location.href = '#/login'
+    }
   },
   methods: {
     onSelect (e) {
