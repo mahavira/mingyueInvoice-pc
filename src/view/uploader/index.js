@@ -5,6 +5,19 @@ export default {
       link: ''
     }
   },
+  computed: {
+    headers () {
+      return {
+        token: this.$store.state.userinfo.token
+      }
+    },
+    data () {
+      return {
+        id: this.$store.state.userinfo.id,
+        financeId: this.$store.state.userinfo.id
+      }
+    }
+  },
   methods: {
     handleSubmit() {
       if (!this.link) {
@@ -39,6 +52,28 @@ export default {
           desc: '上传失败'
         })
         this.loading = false
+      })
+    },
+    onSuccess (res) {
+      if (res.res_code != 200) {
+        this.$Notice.error({
+          title: '错误',
+          desc: '上传失败'
+        })
+      return 
+      }
+      this.$Notice.success({
+        title: '成功',
+        desc: '上传成功'
+      })
+      setTimeout(() => {
+        this.$router.push('/invoices')
+      }, 1000)
+    },
+    onError () {
+      this.$Notice.error({
+        title: '错误',
+        desc: '上传失败'
       })
     }
   },

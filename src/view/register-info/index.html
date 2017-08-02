@@ -2,14 +2,14 @@
   <h2 slot="title" style="text-align:center">注册信息</h2>
   <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="90" style="padding: 20px;">
     <Form-item label="企业ID" prop="idCode">
-      <Input v-model="formValidate.idCode" placeholder=""></Input>
+      <Input v-model="formValidate.idCode" placeholder="" @on-blur="getFinanceUsers"></Input>
     </Form-item>
     <Form-item label="表示名称" prop="name">
       <Input v-model="formValidate.name" placeholder=""></Input>
     </Form-item>
     <Form-item label="主管财务" prop="financeUserId">
       <Select placeholder="请选择所在地" v-model="formValidate.financeUserId">
-        <Option value="">请选择</Option>
+        <Option value="0">请选择</Option>
         <Option v-for="item in financeUsers" key="item.id" :value="item.id" >{{item.name}}</Option>
       </Select>
     </Form-item>

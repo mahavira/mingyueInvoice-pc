@@ -51,8 +51,9 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    fetchFinanceUsers({ commit }) {
-      Vue.http.post('app/login/getFinanceUsers', { idCode: 1048577 }).then(({body})=> {
+    fetchFinanceUsers({ commit, state }, idCode) {
+      idCode = idCode || state.userinfo.idCode
+      Vue.http.post('app/login/getFinanceUsers', { idCode: idCode }).then(({body})=> {
         if (body.res_code === 200) {
           commit('set', {
             financeUsers: body.res_data
@@ -79,5 +80,5 @@ function recursiveBreadcrumb(key, val, data, index, result) {
   }
   return false
 }
-
+console.log(store.state.userinfo)
 export default store

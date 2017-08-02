@@ -26,6 +26,9 @@ export default {
       this.$refs['formValidate'].validate((valid) => {
         if (valid) {
           // this.validateSmsCode()
+          this.$store.commit('set', {
+            userinfo: Object.assign({}, this.$store.state.userinfo, this.formValidate)
+          })
           this.$router.push('/register-info')
         }
       })

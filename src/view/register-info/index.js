@@ -76,9 +76,9 @@ export default {
         })
         this.loading = false
       });
+    },
+    getFinanceUsers() {
+      this.$store.dispatch('fetchFinanceUsers', this.formValidate.idCode)
     }
-  },
-  created() {
-    this.$store.dispatch('fetchFinanceUsers')
   }
 }
