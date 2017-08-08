@@ -1,5 +1,5 @@
 <Menu width="auto" :active-name="$store.state.menuActiveName" :open-names="$store.state.menuOpenNames">
-  <div v-for="(item,k) in data" key="menuKey + k">
+  <div v-for="(item,k) in data" key="menuKey + k" v-if="!($store.state.userinfo.userType=='3'&&item.path=='/allInvoices')">
     <Submenu v-if="item.children" :name="menuKey + k" @click.native="onSelect(item)">
       <template slot="title">
         <Icon :type="item.icon"></Icon>

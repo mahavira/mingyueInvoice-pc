@@ -1,4 +1,8 @@
 export default [{
+  name: '发票信息管理',
+  path: '/allInvoices',
+  icon: 'ios-list-outline'
+}, {
   name: '我的发票',
   path: '/invoices',
   icon: 'ios-albums-outline'
@@ -7,10 +11,6 @@ export default [{
   icon: 'ios-upload-outline',
   path: '/uploader',
   match: ['guide']
-}, {
-  name: '发票信息管理',
-  path: '/allInvoices',
-  icon: 'ios-list-outline'
 }, {
   name: '账号设置',
   icon: 'ios-gear-outline',

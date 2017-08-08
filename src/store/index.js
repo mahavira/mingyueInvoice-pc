@@ -52,7 +52,7 @@ const store = new Vuex.Store({
   },
   actions: {
     fetchFinanceUsers({ commit, state }, idCode) {
-      idCode = idCode || state.userinfo.idCode
+      idCode = idCode || state.userinfo.office.idCode
       Vue.http.post('app/login/getFinanceUsers', { idCode: idCode }).then(({body})=> {
         if (body.res_code === 200) {
           commit('set', {
