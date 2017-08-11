@@ -5,7 +5,8 @@ export default {
       loading: false,
       formValidate: {
         username: '',
-        password: ''
+        password: '',
+        remember: false
       },
       ruleValidate: {
         username: [
@@ -18,7 +19,12 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
+    this.formValidate = {
+      username: localStorage.getItem('remember:username') || '',
+      password: localStorage.getItem('remember:password') || '',
+      remember: localStorage.getItem('remember') ? true : false
+    }
   },
   methods: {
     handleSubmit(name) {
@@ -38,6 +44,16 @@ export default {
             title: '成功',
             desc: '登录成功'
           })
+          // 记住密码
+          if (this.formValidate.remember) {
+            localStorage.setItem('remember:username', this.formValidate.username)
+            localStorage.setItem('remember:password', this.formValidate.password)
+            localStorage.setItem('remember', 1)
+          } else {
+            localStorage.removeItem('remember:username')
+            localStorage.removeItem('remember:password')
+            localStorage.removeItem('remember')
+          }
         } else {
           this.$Notice.error({
             title: '错误',

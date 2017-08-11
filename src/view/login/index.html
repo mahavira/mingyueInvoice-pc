@@ -3,10 +3,13 @@
   <h3 style="margin: 20px 0 50px;">欢迎使用{{$conf.title}}助手</h3>
   <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="67" style="padding: 20px;">
     <Form-item label="用户名" prop="username">
-      <Input v-model="formValidate.username" placeholder="手机号码/邮箱"></Input>
+      <Input v-model="formValidate.username" placeholder="手机号码/邮箱" @on-enter="handleSubmit('formValidate')"></Input>
     </Form-item>
     <Form-item label="密码" prop="password">
-      <Input v-model="formValidate.password" placeholder="******" type="password"></Input>
+      <Input v-model="formValidate.password" placeholder="******" type="password" @on-enter="handleSubmit('formValidate')"></Input>
+    </Form-item>
+    <Form-item style="margin-bottom:15px;text-align:left;">
+      <Checkbox v-model="formValidate.remember"> 记住我的登录信息</Checkbox>
     </Form-item>
     <Form-item style="margin-bottom:5px;">
       <Button type="primary" long :loading="loading" @click="handleSubmit('formValidate')">登录</Button>
