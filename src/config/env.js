@@ -1,2 +1,1 @@
-// export default "development" // production development
-export default "production"
+export default "production" // production development

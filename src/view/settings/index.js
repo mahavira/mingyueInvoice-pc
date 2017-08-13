@@ -9,7 +9,7 @@ export default {
           { required: true, message: '请输入表示名称', trigger: 'blur' }
         ],
         financeId: [
-          { required: true, message: '请输入主管财务', trigger: 'blur' }
+          { required: true, message: '请输入财务主管', trigger: 'blur' }
         ],
         email: [
           { required: true, message: '请输入Email', trigger: 'blur' }
