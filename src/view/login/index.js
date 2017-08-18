@@ -40,10 +40,6 @@ export default {
         if (body.res_code === 200) {
           this.$store.commit('setUserinfo', body.res_data)
           this.$router.push('/invoices')
-          this.$Notice.success({
-            title: '成功',
-            desc: '登录成功'
-          })
           // 记住密码
           if (this.formValidate.remember) {
             localStorage.setItem('remember:username', this.formValidate.username)

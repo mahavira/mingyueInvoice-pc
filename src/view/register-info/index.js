@@ -24,7 +24,7 @@ export default {
           { required: true, message: '请输入财务主管', trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '请输入Email', trigger: 'blur' }
+          { type: 'email', message: '无效的Email', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
