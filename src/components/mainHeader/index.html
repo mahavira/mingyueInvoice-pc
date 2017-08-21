@@ -4,6 +4,7 @@
   </div>
   <h1 class="logo-title">{{$conf.title}}</h1>
   <div class="layout-ceiling-main">
+    <router-link to="/message" style="font-size:25px"><Icon type="email"></Icon></router-link>
     <router-link to="/settings">{{userinfo.name}}</router-link>
     <a @click="logout" href="javascript:;">退出</a>
   </div>

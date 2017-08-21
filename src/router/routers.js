@@ -87,6 +87,14 @@ export default [
         },
         component: require('@/view/guide/index.vue')
       },
+      {
+        name: 'message',
+        path: '/message',
+        meta: {
+          title: '我的消息'
+        },
+        component: require('@/view/message/index.vue')
+      }
     ]
   }
 ]

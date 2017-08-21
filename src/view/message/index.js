@@ -1,6 +1,6 @@
 import {isArray} from 'lodash'
 export default {
-  name: 'ViewInvoices',
+  name: 'ViewMessage',
   data () {
     return {
       data: [],
@@ -11,13 +11,14 @@ export default {
   },
   methods: {
     fetch(attributes) {
-      this.$http.post('app/bill/getMyBills', {
-        pageNo: this.pageNo
+      this.$http.post('app/message/getMyMessages', {
+        pageNo: this.pageNo - 1,
+        pageSize: this.pageSize
       }).then(({body}) => {
         if (body.res_code === 200) {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
-            this.total = body.res_data.total
+            this.total = body.res_data.count
           }
         } else {
           this.$Notice.error({
@@ -30,6 +31,17 @@ export default {
           title: '错误',
           desc: '数据获取失败！'
         })
+      })
+    },
+    readMessage (item) {
+      item.isRead = true
+      this.$http.post('app/bill/readMyMessage', {
+        id: item.id
+      }).then(({body}) => {
+        if (body.res_code === 200) {
+        } else {
+        }
+      }, e => {
       })
     },
     onChange (pageNo) {
