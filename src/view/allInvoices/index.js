@@ -26,7 +26,7 @@ export default {
     },
     handleDelete (item) {},
     fetch(attributes) {
-      this.$http.post('app/bill/getMyBills', {
+      this.$http.post('app/bill/getBillsMsg', {
         pageNo: this.pageNo
       }).then(({body}) => {
         if (body.res_code === 200) {
@@ -65,6 +65,8 @@ export default {
       this.$refs.printIframe.contentWindow.print()
     }
   },
-  created () {},
+  created () {
+    this.fetch()
+  },
   mounted () {}
 }
