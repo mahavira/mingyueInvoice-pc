@@ -1,6 +1,24 @@
 <section>
   <div style="margin-bottom:20px;">
     <Button type="primary" shape="circle" icon="ios-printer-outline" @click="batchPrint">批量打印</Button>
+    <div style="float:right;margin-bottom:20px;">
+      <table class="table table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <th>合同到期日</th>
+            <td>{{contract.payEndTime|slice(0, 10)}}</td>
+          </tr>
+          <tr>
+            <th>当月发票额度</th>
+            <td>{{contract.monthUpperLimit}}</td>
+          </tr>
+          <tr>
+            <th>当月剩余额度</th>
+            <td>{{contract.monthUpperLimit - contract.use}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <table class="table" >
     <thead>
@@ -18,15 +36,15 @@
     <tbody>
       <tr v-if="data.length" v-for="item in data" key="item.id">
         <td>
-          <Checkbox v-model="checkedAll">全选</Checkbox>
+          <Checkbox :value="checkedIds.indexOf(item.id)>=0" @on-change="handleCheck(item.id)"></Checkbox>
         </td>
-        <td>{{item.name}}</td>
-        <td>{{item.money}}</td>
-        <td>{{item.isPrint?'未打印':'已打印'}}</td>
-        <td>{{item.datetime}}</td>
+        <td>{{item.salesName}}</td>
+        <td>{{item.sumWithTax}}</td>
+        <td>{{item.isNewRecord?'未打印':'已打印'}}</td>
+        <td>{{item.createDate}}</td>
         <td>
-          <a href="javascript:;" @click="singlePrint(item)"><Icon type="ios-printer-outline"></Icon> 打印</a>
-          <!-- <a style="margin-left:10px;" href="javascript:;" @click="handleDelete(item)"><Icon type="ios-trash-outline"></Icon> 删除</a> -->
+          <a v-if="item.isNewRecord" href="javascript:;" @click="singlePrint(item)"><Icon type="ios-printer-outline"></Icon> 打印</a>
+          <span v-else>-</span>
         </td>
       </tr>
       <tr v-if="!data.length">

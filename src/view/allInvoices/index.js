@@ -8,7 +8,8 @@ export default {
       pageSize: 10,
       pageNo: 1,
       checkedIds: [],
-      pdfUrl: '/static/monitoring.pdf'
+      pdfUrl: '/static/monitoring.pdf',
+      contract: {}
     }
   },
   computed: {
@@ -33,6 +34,10 @@ export default {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
           }
+          if (body.res_data1) {
+            this.contract = body.res_data1
+            this.contract.use = body.res_data2
+          }
         } else {
           this.$Notice.error({
             title: '错误',
@@ -51,14 +56,22 @@ export default {
       this.fetch()
     },
     handleCheckAll () {
-      if (!this.checkedAll) {
-        this.data.forEach((item, i) => {
-          if (this.checkedIds.indexOf(item.id)) {
-            checkedIds.push(item.id)
+      if (this.data.length <= this.checkedIds.length) {
+        this.checkedIds = []
+      } else {
+        this.data.forEach(item => {
+          if (this.checkedIds.indexOf(item.id) < 0) {
+            this.checkedIds.push(item.id)
           }
         })
+      }
+    },
+    handleCheck(id) {
+      var i = this.checkedIds.indexOf(id)
+      if (i >= 0) {
+        this.checkedIds.splice(i, 1)
       } else {
-        this.checkedIds = []
+        this.checkedIds.push(id)
       }
     },
     onPrint () {
