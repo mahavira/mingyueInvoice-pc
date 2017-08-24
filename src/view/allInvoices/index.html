@@ -5,15 +5,15 @@
       <table class="table table-bordered table-condensed">
         <tbody>
           <tr>
-            <th>合同到期日</th>
+            <th>服务到期时间</th>
             <td>{{contract.payEndTime|slice(0, 10)}}</td>
           </tr>
           <tr>
-            <th>当月发票额度</th>
+            <th>本月可使用发票额度</th>
             <td>{{contract.monthUpperLimit}}</td>
           </tr>
           <tr>
-            <th>当月剩余额度</th>
+            <th>本月已使用发票额度</th>
             <td>{{contract.monthUpperLimit - contract.use}}</td>
           </tr>
         </tbody>
