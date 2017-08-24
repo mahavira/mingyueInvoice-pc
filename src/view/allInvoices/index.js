@@ -1,7 +1,22 @@
-import {isArray} from 'lodash'
+import { isArray } from 'lodash'
+function printPdf (iframe, url) {
+  if (iframe.attachEvent) {
+    iframe.attachEvent('onload', function () {
+      iframe.focus()
+      iframe.contentWindow.print()
+    })
+  } else {
+    iframe.onload = function () {
+      iframe.focus()
+      iframe.contentWindow.print()
+    }
+  }
+  iframe.src = url
+}
+
 export default {
   name: 'ViewAllInvoices',
-  data () {
+  data() {
     return {
       data: [],
       total: 0,
@@ -9,27 +24,60 @@ export default {
       pageNo: 1,
       checkedIds: [],
       pdfUrl: '/static/monitoring.pdf',
-      contract: {}
+      contract: {},
+      isPrinting: false
     }
   },
   computed: {
-    checkedAll () {
+    checkedAll() {
       if (!this.data.length) return false
       return this.checkedIds.length >= this.data.length
     }
   },
   methods: {
-    batchPrint () {
-      this.onPrint()
+    batchPrint() {
+      if (!this.checkedIds.length) {
+        this.$Notice.error({
+          title: '错误',
+          desc: '请选择你要打印的发票'
+        })
+        return
+      }
+      this.fetchPdf(this.checkedIds)
     },
-    singlePrint (item) {
-      this.onPrint()
+    singlePrint(item) {
+      this.fetchPdf([item.id])
     },
-    handleDelete (item) {},
+    fetchPdf(ids) {
+      this.isPrinting = true
+      this.$http.post('app/bill/printPdf', {
+        id: ids.join()
+      }).then(({ body }) => {
+        if (body.res_code === 200) {
+          this.pdfUrl = body.res_data
+          this.printPdf()
+          this.isPrinting = false
+        } else {
+          this.$Notice.error({
+            title: '错误',
+            desc: '数据获取失败！'
+          })
+        }
+      }, e => {
+        this.$Notice.error({
+          title: '错误',
+          desc: '数据获取失败！'
+        })
+      })
+    },
+    printPdf() {
+      printPdf(this.$refs.printIframe, this.pdfUrl)
+      // this.$refs.printIframe.contentWindow.print()
+    },
     fetch(attributes) {
       this.$http.post('app/bill/getBillsMsg', {
         pageNo: this.pageNo
-      }).then(({body}) => {
+      }).then(({ body }) => {
         if (body.res_code === 200) {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
@@ -51,11 +99,11 @@ export default {
         })
       })
     },
-    onChange (pageNo) {
+    onChange(pageNo) {
       this.pageNo = pageNo
       this.fetch()
     },
-    handleCheckAll () {
+    handleCheckAll() {
       if (this.data.length <= this.checkedIds.length) {
         this.checkedIds = []
       } else {
@@ -73,13 +121,10 @@ export default {
       } else {
         this.checkedIds.push(id)
       }
-    },
-    onPrint () {
-      this.$refs.printIframe.contentWindow.print()
     }
   },
-  created () {
+  created() {
     this.fetch()
   },
-  mounted () {}
+  mounted() { }
 }

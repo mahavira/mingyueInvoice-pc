@@ -1,6 +1,6 @@
 <section>
   <div style="margin-bottom:20px;">
-    <Button type="primary" shape="circle" icon="ios-printer-outline" @click="batchPrint">批量打印</Button>
+    <Button type="primary" shape="circle" icon="ios-printer-outline" @click="batchPrint" :disabled="isPrinting">批量打印</Button>
     <div style="float:right;margin-bottom:20px;">
       <table class="table table-bordered table-condensed">
         <tbody>
