@@ -1,18 +1,4 @@
 import { isArray } from 'lodash'
-function printPdf (iframe, url) {
-  if (iframe.attachEvent) {
-    iframe.attachEvent('onload', function () {
-      iframe.focus()
-      iframe.contentWindow.print()
-    })
-  } else {
-    iframe.onload = function () {
-      iframe.focus()
-      iframe.contentWindow.print()
-    }
-  }
-  iframe.src = url
-}
 
 export default {
   name: 'ViewAllInvoices',
@@ -23,7 +9,7 @@ export default {
       pageSize: 10,
       pageNo: 1,
       checkedIds: [],
-      pdfUrl: '/static/monitoring.pdf',
+      pdfUrl: '',
       contract: {},
       isPrinting: false
     }
@@ -50,29 +36,47 @@ export default {
     },
     fetchPdf(ids) {
       this.isPrinting = true
-      this.$http.post('app/bill/printPdf', {
-        id: ids.join()
-      }).then(({ body }) => {
+      let invoiceList = ''
+      ids.forEach(n => {
+        invoiceList += 'invoiceList=' + n + '&'
+      })
+      this.$http.post('app/bill/printPdf?' + invoiceList, {}).then(({ body }) => {
         if (body.res_code === 200) {
-          this.pdfUrl = body.res_data
+          this.pdfUrl = window.location.origin + body.res_data
           this.printPdf()
-          this.isPrinting = false
         } else {
           this.$Notice.error({
             title: '错误',
             desc: '数据获取失败！'
           })
+          this.isPrinting = false
         }
       }, e => {
         this.$Notice.error({
           title: '错误',
           desc: '数据获取失败！'
         })
+        this.isPrinting = false
       })
     },
     printPdf() {
-      printPdf(this.$refs.printIframe, this.pdfUrl)
-      // this.$refs.printIframe.contentWindow.print()
+      this.printP(this.$refs.printIframe, this.pdfUrl)
+    },
+    printP (iframe, url) {
+      if (iframe.attachEvent) {
+        iframe.attachEvent('onload', () => {
+          this.isPrinting = false
+          iframe.focus()
+          iframe.contentWindow.print()
+        })
+      } else {
+        iframe.onload = () => {
+          this.isPrinting = false
+          // iframe.focus()
+          iframe.contentWindow.print()
+        }
+      }
+      // iframe.src = url
     },
     fetch(attributes) {
       this.$http.post('app/bill/getBillsMsg', {
