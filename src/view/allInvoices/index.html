@@ -40,10 +40,10 @@
         </td>
         <td>{{item.salesName}}</td>
         <td>{{item.sumWithTax}}</td>
-        <td>{{item.isNewRecord?'未打印':'已打印'}}</td>
+        <td>{{!item.isNewRecord?'未打印':'已打印'}}</td>
         <td>{{item.createDate}}</td>
         <td>
-          <a v-if="item.isNewRecord" href="javascript:;" @click="singlePrint(item)"><Icon type="ios-printer-outline"></Icon> 打印</a>
+          <a v-if="!item.isNewRecord" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting"><Icon type="ios-printer-outline"></Icon> 打印</a>
           <span v-else>-</span>
         </td>
       </tr>
@@ -53,6 +53,6 @@
     </tbody>
   </table>
   <Page v-if="data.length" style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
-  <iframe style="display:none" ref="printIframe" :src="pdfUrl"></iframe>
+  <iframe style="display:none" ref="iframe" :src="pdfUrl"></iframe>
 
 </section>

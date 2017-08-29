@@ -36,10 +36,11 @@ export default {
     },
     fetchPdf(ids) {
       this.isPrinting = true
-      let invoiceList = ''
+      let invoices = []
       ids.forEach(n => {
-        invoiceList += 'invoiceList=' + n + '&'
+        invoices.push('invoiceList=' + n)
       })
+      var invoiceList = invoices.join('&')
       this.$http.post('app/bill/printPdf?' + invoiceList, {}).then(({ body }) => {
         if (body.res_code === 200) {
           this.pdfUrl = window.location.origin + body.res_data
@@ -47,26 +48,26 @@ export default {
         } else {
           this.$Notice.error({
             title: '错误',
-            desc: '数据获取失败！'
+            desc: '发票地址获取失败！'
           })
           this.isPrinting = false
         }
       }, e => {
         this.$Notice.error({
           title: '错误',
-          desc: '数据获取失败！'
+          desc: '发票地址获取失败！'
         })
         this.isPrinting = false
       })
     },
     printPdf() {
-      this.printP(this.$refs.printIframe, this.pdfUrl)
+      this.printIframe(this.$refs.iframe, this.pdfUrl)
     },
-    printP (iframe, url) {
+    printIframe (iframe, url) {
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
           this.isPrinting = false
-          iframe.focus()
+          // iframe.focus()
           iframe.contentWindow.print()
         })
       } else {
@@ -77,6 +78,11 @@ export default {
         }
       }
       // iframe.src = url
+    },
+    /**
+     * 设置为已打印
+     */
+    fetchSetPrint () {
     },
     fetch(attributes) {
       this.$http.post('app/bill/getBillsMsg', {
