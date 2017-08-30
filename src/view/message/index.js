@@ -35,7 +35,7 @@ export default {
     },
     readMessage (item) {
       item.isRead = true
-      this.$http.post('app/bill/readMyMessage', {
+      this.$http.post('app/message/readMyMessage', {
         id: item.id
       }).then(({body}) => {
         if (body.res_code === 200) {

@@ -12,7 +12,8 @@
           <td>{{item.title}}</td>
           <td>{{item.createDate}}</td>
           <td>
-            <a href="javascript:;" @click="readMessage(item)">设为已读</a>
+            <span v-if="item.isRead=='1'">-</span>
+            <a v-else href="javascript:;" @click="readMessage(item)">设为已读</a>
           </td>
         </tr>
         <tr v-if="!data.length">
