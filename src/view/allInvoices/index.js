@@ -45,6 +45,7 @@ export default {
         if (body.res_code === 200) {
           this.pdfUrl = window.location.origin + body.res_data
           this.printPdf()
+          this.setPrint(ids)
         } else {
           this.$Notice.error({
             title: '错误',
@@ -82,7 +83,27 @@ export default {
     /**
      * 设置为已打印
      */
-    fetchSetPrint () {
+    setPrint (ids) {
+      if (isArray(ids)) {
+        ids.forEach(n => {
+          this.fetchSetPrint(n)
+        })
+        return false
+      }
+      this.fetchSetPrint(ids)
+    },
+    fetchSetPrint (id) {
+      this.$http.post('app/bill/pdfReadyPrint', {invoiceId: id}).then(({ body }) => {
+        if (body.res_code === 200) {
+          this.data.forEach(item => {
+            if (item.id === id) {
+              item.fpHandleStatus = '3'
+            }
+          })
+        } else {
+        }
+      }, e => {
+      })
     },
     fetch(attributes) {
       this.$http.post('app/bill/getBillsMsg', {

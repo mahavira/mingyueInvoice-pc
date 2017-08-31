@@ -14,7 +14,7 @@
           </tr>
           <tr>
             <th>本月已使用发票额度</th>
-            <td>{{contract.monthUpperLimit - contract.use}}</td>
+            <td>{{contract.use}}</td>
           </tr>
         </tbody>
       </table>
@@ -36,14 +36,19 @@
     <tbody>
       <tr v-if="data.length" v-for="item in data" key="item.id">
         <td>
-          <Checkbox :value="checkedIds.indexOf(item.id)>=0" @on-change="handleCheck(item.id)"></Checkbox>
+          <Checkbox :disabled="item.fpHandleStatus!='2'" :value="checkedIds.indexOf(item.id)>=0" @on-change="handleCheck(item.id)"></Checkbox>
         </td>
         <td>{{item.salesName}}</td>
         <td>{{item.sumWithTax}}</td>
-        <td>{{!item.isNewRecord?'未打印':'已打印'}}</td>
+        <td>
+          <span v-if="item.fpHandleStatus=='0'">未查验</span>
+          <span v-else-if="item.fpHandleStatus=='1'">查验失败</span>
+          <span v-else-if="item.fpHandleStatus=='2'">未打印</span>
+          <span v-else-if="item.fpHandleStatus=='3'">已打印</span>
+        </td>
         <td>{{item.createDate}}</td>
         <td>
-          <a v-if="!item.isNewRecord" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting"><Icon type="ios-printer-outline"></Icon> 打印</a>
+          <a v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting"><Icon type="ios-printer-outline"></Icon> 打印</a>
           <span v-else>-</span>
         </td>
       </tr>

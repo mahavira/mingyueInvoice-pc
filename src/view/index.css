@@ -40,7 +40,7 @@
   }
   .layout-container {
     padding: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
   }
   .layout-breadcrumb {
     padding: 10px 15px 0;
@@ -57,6 +57,10 @@
 
 .layout-footer{
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width: 100%;
 }
 
 .layout-footer-bottom {

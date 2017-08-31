@@ -15,7 +15,12 @@
       <tr v-if="data.length" v-for="item in data">
         <td>{{item.salesName}}</td>
         <td>{{item.sumWithTax}}</td>
-        <td>{{!item.isNewRecord?'未打印':'已打印'}}</td>
+        <td>
+          <span v-if="item.fpHandleStatus=='0'">未查验</span>
+          <span v-else-if="item.fpHandleStatus=='1'">查验失败</span>
+          <span v-else-if="item.fpHandleStatus=='2'">未打印</span>
+          <span v-else-if="item.fpHandleStatus=='3'">已打印</span>
+        </td>
         <td>{{item.fpDate}}</td>
       </tr>
       <tr v-if="!data.length">

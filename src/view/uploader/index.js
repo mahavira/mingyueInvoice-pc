@@ -40,16 +40,17 @@ export default {
           this.link = ''
           this.$router.push('/invoices')
         } else {
+          console.log(body)
           this.$Notice.error({
-            title: '错误',
-            desc: body.res_data ? body.res_data : '上传失败!'
+            title: '上传失败',
+            desc: body.res_data || '上传失败!'
           })
         }
         this.loading = false
       }, e => {
         this.$Notice.error({
-          title: '错误',
-          desc: '上传失败'
+          title: '上传失败',
+          desc: '服务器无响应'
         })
         this.loading = false
       })
@@ -57,8 +58,8 @@ export default {
     onSuccess (res) {
       if (res.res_code != 200) {
         this.$Notice.error({
-          title: '错误',
-          desc: '上传失败'
+          title: '上传失败',
+          desc: res.res_data || '上传失败!'
         })
       return 
       }
@@ -72,8 +73,8 @@ export default {
     },
     onError () {
       this.$Notice.error({
-        title: '错误',
-        desc: '上传失败'
+        title: '上传失败',
+        desc: '服务器无响应'
       })
     }
   },

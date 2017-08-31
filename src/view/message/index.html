@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <tr v-if="data.length" v-for="item in data" key="item.id">
-          <td>{{item.title}}</td>
+          <td>{{item.content}}</td>
           <td>{{item.createDate}}</td>
           <td>
             <span v-if="item.isRead=='1'">-</span>
