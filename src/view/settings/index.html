@@ -1,4 +1,13 @@
 <Form  ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="90" style="width:400px;">
+  <Form-item label="公司名称">
+    {{formValidate.office.name}}
+  </Form-item>
+  <Form-item label="公司ID">
+    {{formValidate.office.idCode}}
+  </Form-item>
+  <Form-item label="手机号码">
+    {{formValidate.mobile}}
+  </Form-item>
   <Form-item label="表示名称" prop="name">
     <Input v-model="formValidate.name" placeholder=""></Input>
   </Form-item>
