@@ -27,6 +27,7 @@
           <Checkbox :value="checkedAll" @click.prevent.native="handleCheckAll">全选</Checkbox>
         </th>
         <th>名称</th>
+        <th>报销人</th>
         <th>金额</th>
         <th>发票状态</th>
         <th>时间</th>
@@ -39,6 +40,7 @@
           <Checkbox :disabled="item.fpHandleStatus!='2'" :value="checkedIds.indexOf(item.id)>=0" @on-change="handleCheck(item.id)"></Checkbox>
         </td>
         <td>{{item.salesName}}</td>
+        <td>{{item.createName.name}}</td>
         <td>{{item.sumWithTax}}</td>
         <td>
           <span v-if="item.fpHandleStatus=='0'">未查验</span>
@@ -58,6 +60,5 @@
     </tbody>
   </table>
   <Page v-if="data.length" style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
-  <iframe style="display:none" ref="iframe" :src="pdfUrl"></iframe>
-
+  <iframe style="height:100px;width:100%;opacity:0" ref="iframe" ></iframe>
 </section>

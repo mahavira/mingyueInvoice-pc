@@ -1,4 +1,4 @@
-import { isArray } from 'lodash'
+import { isArray, forEach } from 'lodash'
 
 export default {
   name: 'ViewAllInvoices',
@@ -17,7 +17,17 @@ export default {
   computed: {
     checkedAll() {
       if (!this.data.length) return false
-      return this.checkedIds.length >= this.data.length
+      var result = true
+      forEach(this.data, item => {
+        if (item.fpHandleStatus != '3') {
+          if (this.checkedIds.indexOf(item.id) < 0) {
+            result = false
+            return
+          }
+        }
+      })
+      return result
+      // return this.checkedIds.length >= this.data.length
     }
   },
   methods: {
@@ -44,7 +54,9 @@ export default {
       this.$http.post('app/bill/printPdf?' + invoiceList, {}).then(({ body }) => {
         if (body.res_code === 200) {
           this.pdfUrl = window.location.origin + body.res_data
+          // window.open(window.location.origin + body.res_data)
           this.printPdf()
+            // this.isPrinting = false
           this.setPrint(ids)
         } else {
           this.$Notice.error({
@@ -62,9 +74,9 @@ export default {
       })
     },
     printPdf() {
-      this.printIframe(this.$refs.iframe, this.pdfUrl)
-    },
-    printIframe (iframe, url) {
+      var iframe = this.$refs.iframe
+      var url = this.pdfUrl
+      console.log(iframe)
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
           this.isPrinting = false
@@ -73,12 +85,17 @@ export default {
         })
       } else {
         iframe.onload = () => {
+          console.log('iframe load', iframe.contentWindow)
           this.isPrinting = false
           // iframe.focus()
           iframe.contentWindow.print()
         }
+        iframe.onerror = () => {
+          console.log('iframe load error')
+          this.isPrinting = false
+        }
       }
-      // iframe.src = url
+      iframe.src = url
     },
     /**
      * 设置为已打印
@@ -135,11 +152,11 @@ export default {
       this.fetch()
     },
     handleCheckAll() {
-      if (this.data.length <= this.checkedIds.length) {
+      if (this.checkedAll) {
         this.checkedIds = []
       } else {
         this.data.forEach(item => {
-          if (this.checkedIds.indexOf(item.id) < 0) {
+          if (this.checkedIds.indexOf(item.id) < 0 && item.fpHandleStatus != '3') {
             this.checkedIds.push(item.id)
           }
         })

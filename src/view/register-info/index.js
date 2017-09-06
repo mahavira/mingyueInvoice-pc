@@ -3,6 +3,15 @@ import { mapState } from 'vuex'
 export default {
   name: 'ViewRegister-info',
   data() {
+    const validatePassCheck = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.formValidate.password) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       formValidate: {
@@ -27,10 +36,18 @@ export default {
           { type: 'email', message: '无效的Email', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '请输入登录密码', trigger: 'blur' }
+          { required: true, message: '请输入登录密码', trigger: 'blur' },
+          ,
+          {
+            type: 'string',
+            min: 6,
+            message: '密码至少6位',
+            trigger: 'blur'
+          }
         ],
         passwordAgain: [
-          { required: true, message: '密码不一致', trigger: 'blur' }
+          { required: true, message: '请再次输入密码', trigger: 'blur' },
+          { validator: validatePassCheck, trigger: 'blur' }
         ]
       }
     }
