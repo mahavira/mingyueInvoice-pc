@@ -294,7 +294,7 @@
           }
           form[name] = value
         }
-        $.post("/app/message/addTouristMsg", form, function (data) {
+        $.get("/project_dzff/a/dzff/touristMsg/save", form, function (data) {
           if (data.res_code === 200) {
             alert('感谢您的支持！')
           } else {

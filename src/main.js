@@ -16,6 +16,28 @@ import './directive'
 import './filtres'
 import conf from './config'
 Vue.prototype.$conf = conf
+
+// fundebug
+function formatComponentName (vm) {
+  if (vm.$root === vm) return 'root'
+  var name = vm._isVue ? vm.$options.name || vm.$options._componentTag : vm.name
+  return (name ? 'component <' + name + '>' : 'anonymous component') + (vm._isVue && vm.$options.__file ? ' at ' + vm.$options.__file : '')
+}
+
+Vue.config.errorHandler = function (err, vm, info) {
+  var componentName = formatComponentName(vm)
+  var propsData = vm.$options.propsData
+  fundebug.notifyError(err,
+  {
+      metaData:
+      {
+          componentName: componentName,
+          propsData: propsData,
+          info: info
+      }
+   })
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
