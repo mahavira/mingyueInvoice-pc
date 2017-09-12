@@ -85,7 +85,7 @@ export default {
         })
         return 
       }
-      this.$http.post('app/sms/sendSmsCode', this.formValidate)
+      this.$http.post('app/sms/sendSmsCode', {...this.formValidate, type: 0})
       this.countdownStart = true
       this.countdown()
     },

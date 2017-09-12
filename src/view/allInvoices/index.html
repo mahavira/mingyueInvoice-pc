@@ -30,7 +30,8 @@
         <th>报销人</th>
         <th>金额</th>
         <th>发票状态</th>
-        <th>时间</th>
+        <th>开票时间</th>
+        <th>上传时间</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -43,11 +44,12 @@
         <td>{{item.createName.name}}</td>
         <td>{{item.sumWithTax}}</td>
         <td>
-          <span v-if="item.fpHandleStatus=='0'">未查验</span>
+          <span v-if="item.fpHandleStatus=='0'">查验中</span>
           <span v-else-if="item.fpHandleStatus=='1'">查验失败</span>
           <span v-else-if="item.fpHandleStatus=='2'">未打印</span>
           <span v-else-if="item.fpHandleStatus=='3'">已打印</span>
         </td>
+        <td>{{item.fpDate}}</td>
         <td>{{item.createDate}}</td>
         <td>
           <a v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting"><Icon type="ios-printer-outline"></Icon> 打印</a>
