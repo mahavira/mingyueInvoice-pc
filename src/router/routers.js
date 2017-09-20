@@ -41,7 +41,7 @@ export default [
     children: [
       {
         name: 'invoices',
-        path: '/invoices',
+        path: '',
         meta: {
           title: '我的发票'
         },

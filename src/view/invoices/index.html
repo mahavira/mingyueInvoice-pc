@@ -30,5 +30,5 @@
       </tr>
     </tbody>
   </table>
-  <Page v-if="data.length" style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
+  <Page v-if="data.length" style="float:right" :current.sync="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator show-total @on-change="onChange"></Page>
 </section>

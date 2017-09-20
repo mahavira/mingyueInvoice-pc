@@ -12,13 +12,16 @@ export default {
   methods: {
     fetch(attributes) {
       this.$http.post('app/bill/getMyBills', {
-        pageNo: this.pageNo
+        pageNo: this.pageNo,
+        pageSize: this.pageSize
       }).then(({body}) => {
         if (body.res_code === 200) {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
-            this.total = body.res_data.total
+          } else {
+            this.data = []
           }
+          this.total = body.res_data.total
         } else {
           this.$Notice.error({
             title: '错误',

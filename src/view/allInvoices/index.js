@@ -11,7 +11,8 @@ export default {
       checkedIds: [],
       pdfUrl: '',
       contract: {},
-      isPrinting: false
+      isPrinting: false,
+      createName: ''
     }
   },
   computed: {
@@ -76,7 +77,6 @@ export default {
     printPdf() {
       var iframe = this.$refs.iframe
       var url = this.pdfUrl
-      console.log(iframe)
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
           this.isPrinting = false
@@ -85,7 +85,6 @@ export default {
         })
       } else {
         iframe.onload = () => {
-          console.log('iframe load', iframe.contentWindow)
           this.isPrinting = false
           // iframe.focus()
           iframe.contentWindow.print()
@@ -122,14 +121,19 @@ export default {
       }, e => {
       })
     },
-    fetch(attributes) {
+    fetch() {
       this.$http.post('app/bill/getBillsMsg', {
-        pageNo: this.pageNo
+        pageNo: this.pageNo,
+        pageSize: this.pageSize,
+        createName: this.createName
       }).then(({ body }) => {
         if (body.res_code === 200) {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
+          } else {
+            this.data = []
           }
+          this.total = body.res_data.count
           if (body.res_data1) {
             this.contract = body.res_data1
             this.contract.use = body.res_data2
@@ -169,6 +173,10 @@ export default {
       } else {
         this.checkedIds.push(id)
       }
+    },
+    handleSearch () {
+      this.pageNo = 1
+      this.fetch()
     }
   },
   created() {

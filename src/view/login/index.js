@@ -39,7 +39,7 @@ export default {
       this.$http.post('app/login/login', this.formValidate).then(({body}) => {
         if (body.res_code === 200) {
           this.$store.commit('setUserinfo', body.res_data)
-          this.$router.push('/invoices')
+          this.$router.push('/')
           // 记住密码
           if (this.formValidate.remember) {
             localStorage.setItem('remember:username', this.formValidate.username)

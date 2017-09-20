@@ -1,26 +1,40 @@
 <section>
   <div style="margin-bottom:20px;">
-    <Button type="primary" shape="circle" icon="ios-printer-outline" @click="batchPrint" :disabled="isPrinting">批量打印</Button>
-    <div style="float:right;margin-bottom:20px;">
+    <Row>
+      <Col span="14">
+      <Button type="primary" shape="circle" icon="ios-printer-outline" @click="batchPrint" :disabled="isPrinting" style="margin-bottom:70px;">批量打印</Button>
+      <Form ref="formInline" inline>
+        <FormItem>
+          <Input type="text" v-model="createName" placeholder="报销人">
+          <Icon type="ios-person-outline" slot="prepend"></Icon>
+          </Input>
+        </FormItem>
+        <FormItem>
+          <Button type="ghost" shape="circle" icon="ios-search" @click.stop="handleSearch">搜索</Button>
+        </FormItem>
+      </Form>
+      </Col>
+      <Col span="10">
       <table class="table table-bordered table-condensed">
         <tbody>
           <tr>
             <th>服务到期时间</th>
-            <td>{{contract.payEndTime|slice(0, 10)}}</td>
+            <td>{{contract.payEndTime|slice(0, 10) || '-'}}</td>
           </tr>
           <tr>
             <th>本月可使用发票额度</th>
-            <td>{{contract.monthUpperLimit}}</td>
+            <td>{{contract.monthUpperLimit || '-'}}</td>
           </tr>
           <tr>
             <th>本月已使用发票额度</th>
-            <td>{{contract.use}}</td>
+            <td>{{contract.use || '-'}}</td>
           </tr>
         </tbody>
       </table>
-    </div>
+      </Col>
+    </Row>
   </div>
-  <table class="table" >
+  <table class="table">
     <thead>
       <tr>
         <th>
@@ -52,15 +66,17 @@
         <td>{{item.fpDate}}</td>
         <td>{{item.createDate}}</td>
         <td>
-          <a v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting"><Icon type="ios-printer-outline"></Icon> 打印</a>
+          <a v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting">
+            <Icon type="ios-printer-outline"></Icon> 打印</a>
           <span v-else>-</span>
         </td>
       </tr>
       <tr v-if="!data.length">
-        <td colspan="6" style="text-align:center;padding:50px 0">无数据</td>
+        <td colspan="8" style="text-align:center;padding:50px 0">无数据</td>
       </tr>
     </tbody>
   </table>
-  <Page v-if="data.length" style="float:right" :current="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator @on-change="onChange"></Page>
-  <iframe style="height:100px;width:100%;opacity:0" ref="iframe" ></iframe>
+  <Page style="float:right" :current.sync="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator show-total
+    @on-change="onChange"></Page>
+  <iframe style="height:100px;width:100%;opacity:0" ref="iframe"></iframe>
 </section>

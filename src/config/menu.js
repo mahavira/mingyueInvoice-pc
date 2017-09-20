@@ -4,7 +4,7 @@ export default [{
   icon: 'ios-list-outline'
 }, {
   name: '我的发票',
-  path: '/invoices',
+  path: '/',
   icon: 'ios-albums-outline'
 }, {
   name: '上传发票',

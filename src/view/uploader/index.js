@@ -38,7 +38,7 @@ export default {
             desc: '上传成功'
           })
           this.link = ''
-          this.$router.push('/invoices')
+          this.$router.push('/')
         } else {
           console.log(body)
           this.$Notice.error({
@@ -68,7 +68,7 @@ export default {
         desc: '上传成功'
       })
       setTimeout(() => {
-        this.$router.push('/invoices')
+        this.$router.push('/')
       }, 1000)
     },
     onError () {

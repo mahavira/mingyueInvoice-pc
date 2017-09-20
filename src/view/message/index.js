@@ -12,7 +12,7 @@ export default {
   methods: {
     fetch(attributes) {
       this.$http.post('app/message/getMyMessages', {
-        pageNo: this.pageNo - 1,
+        pageNo: this.pageNo,
         pageSize: this.pageSize
       }).then(({body}) => {
         if (body.res_code === 200) {
