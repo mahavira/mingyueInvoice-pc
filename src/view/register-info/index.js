@@ -1,5 +1,4 @@
 import { mapState } from 'vuex'
-
 export default {
   name: 'ViewRegister-info',
   data() {
@@ -67,29 +66,29 @@ export default {
       this.loading = true
       var userinfo = this.$store.state.userinfo
       var attributes = Object.assign({}, this.formValidate, {
-        smsCode: userinfo.smsCode,
-        mobile: userinfo.mobile
+        smsCode: userinfo.smsCode || '',
+        mobile: userinfo.mobile || ''
       })
       this.$http.post('app/login/register', attributes).then(({body}) => {
         if (body.res_code === 200) {
-          this.$Notice.success({
+          this.$notify.success({
             title: '成功',
-            desc: '注册成功！'
+            message: '注册成功！'
           })
           setTimeout(() => {
             this.$router.push('/login')
           }, 1500)
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: body.res_data ? body.res_data : '注册失败'
+            message: body.res_data ? body.res_data : '注册失败'
           })
         }
         this.loading = false
       }, (xhr) => {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '注册失败'
+          message: '注册失败'
         })
         this.loading = false
       });

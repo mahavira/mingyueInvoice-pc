@@ -21,9 +21,9 @@ export default {
   methods: {
     handleSubmit() {
       if (!this.link) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '请粘贴电子发票链接'
+          message: '请粘贴电子发票链接'
         })
         return
       }
@@ -33,48 +33,48 @@ export default {
         financeId: this.$store.state.userinfo.financeId
       }).then(({body}) => {
         if (body.res_code === 200) {
-          this.$Notice.success({
+          this.$notify.success({
             title: '错误',
-            desc: '上传成功'
+            message: '上传成功'
           })
           this.link = ''
           this.$router.push('/')
         } else {
           console.log(body)
-          this.$Notice.error({
+          this.$notify.error({
             title: '上传失败',
-            desc: body.res_data || '上传失败!'
+            message: body.res_data || '上传失败!'
           })
         }
         this.loading = false
       }, e => {
-        this.$Notice.error({
+        this.$notify.error({
           title: '上传失败',
-          desc: '服务器无响应'
+          message: '服务器无响应'
         })
         this.loading = false
       })
     },
     onSuccess (res) {
       if (res.res_code != 200) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '上传失败',
-          desc: res.res_data || '上传失败!'
+          message: res.res_data || '上传失败!'
         })
       return 
       }
-      this.$Notice.success({
+      this.$notify.success({
         title: '成功',
-        desc: '上传成功'
+        message: '上传成功'
       })
       setTimeout(() => {
         this.$router.push('/')
       }, 1000)
     },
     onError () {
-      this.$Notice.error({
+      this.$notify.error({
         title: '上传失败',
-        desc: '服务器无响应'
+        message: '服务器无响应'
       })
     }
   },

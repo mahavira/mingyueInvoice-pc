@@ -1,22 +1,24 @@
-<Card class="register">
-  <h2 slot="title" style="text-align:center">注册</h2>
-  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="95" style="padding: 20px;">
-    <Form-item label="手机号" prop="mobile">
-      <Input v-model="formValidate.mobile" placeholder="手机号码"></Input>
-    </Form-item>
-    <Form-item label="手机验证码" prop="smsCode">
-      <Row>
-        <Col span="12">
-        <Input v-model="formValidate.smsCode" placeholder="4位数数字"></Input>
-        </Col>
-        <Col span="11" offset="1">
-        <a v-show="!countdownStart" type="ghost" @click="fetchSmsCode">获取验证码</a>
-        <span v-show="countdownStart">重新获取({{countdownTime}}s)</span>
-        </Col>
-      </Row>
-    </Form-item>
-    <Form-item style="margin-bottom:5px">
-      <Button type="primary" style="width:140px" long :loading="loading" @click="handleSubmit('formValidate')">下一步</Button>
-    </Form-item>
-  </Form>
-</Card>
+<el-card class="card-box">
+  <div slot="header">
+    <h2 slot="title" style="text-align:center">注册</h2>
+  </div>
+  <el-form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-width="95px">
+    <el-form-item label="手机号" prop="mobile">
+      <el-input v-model="formValidate.mobile" placeholder="手机号码"></el-input>
+    </el-form-item>
+    <el-form-item label="手机验证码" prop="smsCode">
+      <el-row>
+        <el-col :span="12">
+          <el-input v-model="formValidate.smsCode" placeholder="4位数数字"></el-input>
+        </el-col>
+        <el-col :span="10" :offset="2">
+          <el-button v-show="!countdownStart" @click="fetchSmsCode">获取验证码</el-button>
+          <span v-show="countdownStart">重新获取({{countdownTime}}s)</span>
+        </el-col>
+      </el-row>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" size="large" :loading="loading" @click="handleSubmit('formValidate')" style="width:150px;">下一步</el-button>
+    </el-form-item>
+  </el-form>
+</el-card>

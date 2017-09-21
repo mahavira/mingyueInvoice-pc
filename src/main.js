@@ -2,14 +2,17 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'babel-polyfill'
 import Vue from 'vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+Vue.use(ElementUI)
 import app from './app'
 import router from './router'
 import store from './store'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+// import iView from 'iview'
+// import 'iview/dist/styles/iview.css'
 import './assets/style.less'
-import './assets/iview-theme.less'
-Vue.use(iView)
+// import './assets/iview-theme.less'
+// Vue.use(iView)
 Vue.config.productionTip = false
 import './http'
 import './directive'

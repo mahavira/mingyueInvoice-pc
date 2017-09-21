@@ -57,37 +57,46 @@ export default {
           this.$router.push('/register-info')
         }
         else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: '验证码不正确！'
+            message: '验证码不正确！'
           })
         }
         this.loading = false
       }, function (xhr, type, errorThrown) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '验证码不正确！'
+          message: '验证码不正确！'
         })
         this.loading = false
       })
     },
     fetchSmsCode() {
       if (!this.formValidate.mobile) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '请输入手机号码'
+          message: '请输入手机号码'
         })
         return 
       } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.formValidate.mobile)) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '请输入手机号码'
+          message: '请输入手机号码'
         })
         return 
       }
-      this.$http.post('app/sms/sendSmsCode', {...this.formValidate, type: 0})
-      this.countdownStart = true
-      this.countdown()
+      this.validateMobileExist(null, null, (e) => {
+        if (!e) {
+          this.$http.post('app/sms/sendSmsCode', {...this.formValidate, type: 0})
+          this.countdownStart = true
+          this.countdown()
+        } else if (e.message){
+          this.$notify.error({
+            title: '错误',
+            message: e.message
+          })
+        }
+      })
     },
     countdown() {
       this.countdownTime--

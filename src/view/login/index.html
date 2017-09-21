@@ -1,22 +1,28 @@
-<Card class="login">
-  <img src="../../assets/logo.png" style="width: 80px;margin-top:50px;">
-  <h3 style="margin: 20px 0 50px;">欢迎使用{{$conf.title}}助手</h3>
-  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="67" style="padding: 20px;">
-    <Form-item label="用户名" prop="username">
-      <Input v-model="formValidate.username" placeholder="手机号码/邮箱" @on-enter="handleSubmit('formValidate')"></Input>
-    </Form-item>
-    <Form-item label="密码" prop="password">
-      <Input v-model="formValidate.password" placeholder="******" type="password" @on-enter="handleSubmit('formValidate')"></Input>
-    </Form-item>
-    <Form-item style="margin-bottom:15px;text-align:left;">
-      <Checkbox v-model="formValidate.remember"> 记住我的登录信息</Checkbox>
-    </Form-item>
-    <Form-item style="margin-bottom:5px;">
-      <Button type="primary" long :loading="loading" @click="handleSubmit('formValidate')">登录</Button>
-    </Form-item>
-    <Form-item style="text-align:left;">
-        <router-link to="/register">注册</router-link>
-         <router-link to="/password-forget" style="float:right">忘记密码</router-link>
-    </Form-item>
-  </Form>
-</Card>
+<el-card class="card-box">
+  <div style="text-align:center">
+    <img src="../../assets/logo.png" style="width: 80px;margin-top:50px;">
+    <h3 style="margin: 20px 0 50px;">欢迎使用{{$conf.title}}助手</h3>
+  </div>
+  <el-form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-width="80px">
+    <el-form-item label="用户名" prop="username">
+      <el-input v-model="formValidate.username"></el-input>
+    </el-form-item>
+    <el-form-item label="密码" prop="password">
+      <el-input type="password" v-model="formValidate.password" auto-complete="off"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-checkbox v-model="formValidate.remember">记住我的登录信息</el-checkbox>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" size="large" :loading="loading" @click="handleSubmit('formValidate')" style="width:150px;">登录</el-button>
+    </el-form-item>
+    <el-row>
+      <el-col :span="12">
+        <el-button type="text" @click="$router.push('/register')">注册</el-button>
+      </el-col>
+      <el-col :span="12">
+        <el-button type="text" @click="$router.push('/password-forget')" style="float:right">忘记密码</el-button>
+      </el-col>
+    </el-row>
+  </el-form>
+</el-card>

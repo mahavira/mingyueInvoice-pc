@@ -21,15 +21,15 @@ export default {
             this.total = body.res_data.count
           }
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: '数据获取失败！'
+            message: '数据获取失败！'
           })
         }
       }, e => {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '数据获取失败！'
+          message: '数据获取失败！'
         })
       })
     },

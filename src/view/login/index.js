@@ -51,16 +51,16 @@ export default {
             localStorage.removeItem('remember')
           }
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: body.res_data ? body.res_data : '登录失败!'
+            message: body.res_data ? body.res_data : '登录失败!'
           })
         }
         this.loading = false
       }, e => {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '登录失败!'
+          message: '登录失败!'
         })
         this.loading = false
       })

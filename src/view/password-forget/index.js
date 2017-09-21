@@ -81,31 +81,31 @@ export default {
         if (body.res_code === 200) {
           this.step = 2
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: '验证码错误'
+            message: '验证码错误'
           })
         }
         this.loading = false
       }, function (xhr, type, errorThrown) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '验证码错误'
+          message: '验证码错误'
         })
         this.loading = false
       })
     },
     fetchSmsCode() {
       if (!this.formValidate.mobile) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '请输入手机号码'
+          message: '请输入手机号码'
         })
         return 
       } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.formValidate.mobile)) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '请输入手机号码'
+          message: '请输入手机号码'
         })
         return 
       }
@@ -127,25 +127,25 @@ export default {
       this.loading = true
       this.$http.post('app/login/createPassword', {...this.formValidate, password: this.formValidatePassword.password}).then(({body}) => {
         if (body.res_code === 200) {
-          this.$Notice.success({
+          this.$notify.success({
             title: '成功',
-            desc: '密码修改成功'
+            message: '密码修改成功'
           })
           setTimeout(() => {
             this.loading = false
             this.$router.push('/login')
           }, 1500)
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: '修改密码失败'
+            message: '修改密码失败'
           })
           this.loading = false
         }
       }, function (xhr, type, errorThrown) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '修改密码失败'
+          message: '修改密码失败'
         })
         this.loading = false
       })

@@ -34,9 +34,9 @@ export default {
   methods: {
     batchPrint() {
       if (!this.checkedIds.length) {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '请选择你要打印的发票'
+          message: '请选择你要打印的发票'
         })
         return
       }
@@ -60,16 +60,16 @@ export default {
             // this.isPrinting = false
           this.setPrint(ids)
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: '发票地址获取失败！'
+            message: '发票地址获取失败！'
           })
           this.isPrinting = false
         }
       }, e => {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '发票地址获取失败！'
+          message: '发票地址获取失败！'
         })
         this.isPrinting = false
       })
@@ -139,15 +139,15 @@ export default {
             this.contract.use = body.res_data2
           }
         } else {
-          this.$Notice.error({
+          this.$notify.error({
             title: '错误',
-            desc: '数据获取失败！'
+            message: '数据获取失败！'
           })
         }
       }, e => {
-        this.$Notice.error({
+        this.$notify.error({
           title: '错误',
-          desc: '数据获取失败！'
+          message: '数据获取失败！'
         })
       })
     },

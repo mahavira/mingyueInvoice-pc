@@ -1,4 +1,4 @@
-<Card class="register">
+<!-- <Card class="register">
   <h2 slot="title" style="text-align:center">注册信息</h2>
   <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="90" style="padding: 20px;">
     <Form-item label="企业ID" prop="idCode">
@@ -26,4 +26,36 @@
       <Button type="primary" style="width:140px" long :loading="loading" @click="handleSubmit('formValidate')">提交</Button>
     </Form-item>
   </Form>
-</Card>
+</Card> -->
+
+<el-card class="card-box">
+    <div slot="header">
+      <h2 slot="title" style="text-align:center">注册信息</h2>
+    </div>
+    <el-form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-width="90px">
+      <el-form-item label="企业ID" prop="idCode">
+        <el-input v-model="formValidate.idCode" placeholder="企业ID" v-on:keyup.native="getFinanceUsers"></el-input>
+      </el-form-item>
+      <el-form-item label="表示名称" prop="name">
+        <el-input v-model="formValidate.name" placeholder="表示名称"></el-input>
+      </el-form-item>
+      <el-form-item label="财务主管" prop="financeUserId">
+        <el-select v-model="formValidate.financeUserId" placeholder="请选择财务主管">
+          <el-option :label="item.name" v-for="item in financeUsers" key="item.id" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="formValidate.email" placeholder="邮箱"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" v-model="formValidate.password" placeholder="密码" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码" prop="passwordAgain">
+        <el-input type="password" v-model="formValidate.passwordAgain" placeholder="确认密码" auto-complete="off"></el-input>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" size="large" :loading="loading" @click="handleSubmit('formValidate')" style="width:150px;">提交</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
