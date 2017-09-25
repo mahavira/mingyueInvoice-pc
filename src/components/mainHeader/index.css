@@ -1,0 +1,12 @@
+.new-message{
+  position: absolute;
+  right: -4px;
+  top:-4px;
+  background: red;
+  width:12px;
+  height:12px;
+  border-radius: 50%;
+}
+.message-box{
+  position: relative
+}

@@ -1,14 +1,3 @@
-<Menu width="auto" :active-name="$store.state.menuActiveName" :open-names="$store.state.menuOpenNames">
-  <div v-for="(item,k) in data" key="menuKey + k" v-if="!($store.state.userinfo.userType=='3'&&item.path=='/allInvoices')">
-    <Submenu v-if="item.children" :name="menuKey + k" @click.native="onSelect(item)">
-      <template slot="title">
-        <Icon :type="item.icon"></Icon>
-        {{item.name}}
-      </template>
-      <Menu-item v-for="(child,i) in item.children" key="menuKey + k + '-' + i" @click.native="onSelect(child)" :name="menuKey + k + '-' + i">{{child.name}}</Menu-item>
-    </Submenu>
-    <Menu-item v-if="!item.children" :name="menuKey + k" key="item.name" @click.native="onSelect(item)">
-      <Icon :type="item.icon"></Icon> {{item.name}}
-    </Menu-item>
-  </div>
-</Menu>
+<el-menu :default-active="$store.state.menuActiveName">
+  <el-menu-item v-for="item in data" key="k" v-if="!($store.state.userinfo.userType=='3'&&item.path=='/allInvoices')" :index="item.path" @click.native="onSelect(item)"><i :class="item.icon"></i>{{item.name}}</el-menu-item>
+</el-menu>

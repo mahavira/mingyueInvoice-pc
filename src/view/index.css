@@ -11,6 +11,7 @@
   }
   .layout-ceiling .logo img{
     height: 50px;
+    width: 50px;
     display: block
   }
   .layout-ceiling .logo-title{
@@ -19,6 +20,8 @@
     margin-left: 15px;
     font-weight: 400;
     line-height: 50px;
+    margin-bottom: 0;
+    margin-top: 0
   }
   .layout-ceiling-main {
     float: right;

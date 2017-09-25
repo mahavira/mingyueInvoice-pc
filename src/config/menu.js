@@ -1,26 +1,28 @@
-export default [{
-  name: '发票信息管理',
-  path: '/allInvoices',
-  icon: 'ios-list-outline'
-}, {
-  name: '我的发票',
-  path: '/',
-  icon: 'ios-albums-outline'
-}, {
-  name: '上传发票',
-  icon: 'ios-upload-outline',
-  path: '/uploader',
-  match: ['guide']
-}, {
-  name: '账号设置',
-  icon: 'ios-gear-outline',
-  children: [{
-    name: '我的信息',
-    icon: 'ios-settings',
-    path: '/settings',
-  }, {
-    name: '修改密码',
-    icon: 'ios-locked-outline',
-    path: '/password'
-  }]
-}]
+export default [
+  {
+    name: "发票信息管理",
+    path: "/allInvoices",
+    icon: "el-icon-menu"
+  },
+  {
+    name: "我的发票",
+    path: "/",
+    icon: "el-icon-star-on"
+  },
+  {
+    name: "上传发票",
+    icon: "el-icon-upload2",
+    path: "/uploader",
+    match: ["/guide"]
+  },
+  {
+    name: "基本信息",
+    icon: "el-icon-setting",
+    path: "/settings"
+  },
+  {
+    name: "修改密码",
+    icon: "el-icon-edit",
+    path: "/password"
+  }
+];

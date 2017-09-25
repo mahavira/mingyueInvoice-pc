@@ -6,7 +6,7 @@ export default {
     return {
       data: [],
       total: 0,
-      pageSize: 10,
+      pageSize: 2,
       pageNo: 1,
       checkedIds: [],
       pdfUrl: '',
@@ -18,17 +18,17 @@ export default {
   computed: {
     checkedAll() {
       if (!this.data.length) return false
-      var result = true
-      forEach(this.data, item => {
-        if (item.fpHandleStatus != '3') {
-          if (this.checkedIds.indexOf(item.id) < 0) {
-            result = false
-            return
-          }
-        }
-      })
-      return result
-      // return this.checkedIds.length >= this.data.length
+      // var result = true
+      // forEach(this.data, item => {
+      //   if (item.fpHandleStatus != '3') {
+      //     if (this.checkedIds.indexOf(item.id) < 0) {
+      //       result = false
+      //       return
+      //     }
+      //   }
+      // })
+      // return result
+      return this.checkedIds.length >= this.data.length
     }
   },
   methods: {
@@ -44,6 +44,16 @@ export default {
     },
     singlePrint(item) {
       this.fetchPdf([item.id])
+    },
+    againSinglePrint (item) {
+      this.$confirm('该发票已经打印过了，是否再次打印?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.fetchPdf([item.id])
+      }).catch(() => { 
+      })
     },
     fetchPdf(ids) {
       this.isPrinting = true
@@ -160,7 +170,7 @@ export default {
         this.checkedIds = []
       } else {
         this.data.forEach(item => {
-          if (this.checkedIds.indexOf(item.id) < 0 && item.fpHandleStatus != '3') {
+          if (this.checkedIds.indexOf(item.id) < 0) {
             this.checkedIds.push(item.id)
           }
         })

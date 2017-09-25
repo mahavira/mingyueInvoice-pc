@@ -20,6 +20,7 @@ export default {
             this.data = body.res_data.list
             this.total = body.res_data.count
           }
+          this.setMessageRead()
         } else {
           this.$notify.error({
             title: '错误',
@@ -47,7 +48,15 @@ export default {
     onChange (pageNo) {
       this.pageNo = pageNo
       this.fetch()
-    }
+    },
+    /**
+	 * 设置消息为已读
+	 */
+	  setMessageRead () {
+      this.$http.post('app/message/changeAll', {}, function(req) {
+      }, function(xhr, type, errorThrown) {
+      })
+	  }
   },
   created () {
     this.fetch()

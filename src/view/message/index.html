@@ -1,27 +1,34 @@
 <section>
-    <table class="table" >
-      <thead>
-        <tr>
-          <th>内容</th>
-          <th>时间</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="data.length" v-for="item in data" key="item.id">
-          <td>{{item.content}}</td>
-          <td>{{item.createDate}}</td>
-          <td>
-            <span v-if="item.isRead=='1'">-</span>
-            <a v-else href="javascript:;" @click="readMessage(item)">设为已读</a>
-          </td>
-        </tr>
-        <tr v-if="!data.length">
-          <td colspan="6" style="text-align:center;padding:50px 0">无数据</td>
-        </tr>
-      </tbody>
-    </table>
-    <Page v-if="data.length" style="float:right" :current.sync="pageNo" 
-    :total="total" :page-size="pageSize" size="small" 
-    show-elevator show-total @on-change="onChange"></Page>
-  </section>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>内容</th>
+        <th>时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-if="data.length" v-for="item in data" key="item.id">
+        <td>{{item.content}}</td>
+        <td>{{item.createDate}}</td>
+        <td>
+          <span v-if="item.isRead=='1'">-</span>
+          <a v-else href="javascript:;" @click="readMessage(item)">设为已读</a>
+        </td>
+      </tr>
+      <tr v-if="!data.length">
+        <td colspan="6" style="text-align:center;padding:50px 0">无数据</td>
+      </tr>
+    </tbody>
+  </table>
+  <el-pagination
+    style="float:right"
+    v-if="data.length"
+    @current-change="onChange"
+    :current-page.sync="pageNo"
+    :page-size="pageSize"
+    layout="total, prev, pager, next"
+    :total="total">
+  </el-pagination>
+
+</section>

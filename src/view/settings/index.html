@@ -1,26 +1,27 @@
-<Form  ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="90" style="width:400px;">
-  <Form-item label="公司名称">
-    {{formValidate.office.name}}
-  </Form-item>
-  <Form-item label="公司ID">
-    {{formValidate.office.idCode}}
-  </Form-item>
-  <Form-item label="手机号码">
-    {{formValidate.mobile}}
-  </Form-item>
-  <Form-item label="表示名称" prop="name">
-    <Input v-model="formValidate.name" placeholder=""></Input>
-  </Form-item>
-  <Form-item label="财务主管" prop="financeId">
-    <Select placeholder="请选择财务主管" v-model="formValidate.financeId">
-        <Option value="">请选择</Option>
-        <Option v-for="item in financeUsers" key="item.id" :value="item.id" >{{item.name}}</Option>
-    </Select>
-  </Form-item>
-  <Form-item label="邮箱" prop="email">
-    <Input v-model="formValidate.email" placeholder=""></Input>
-  </Form-item>
-  <Form-item style="margin-bottom:5px;">
-    <Button type="primary" style="width:140px" long :loading="loading" @click="handleSubmit('formValidate')">保存</Button>
-  </Form-item>
-</Form>
+<el-form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-width="90px" style="width:400px;">
+  <el-form-item label="公司名称">
+      {{formValidate.office.name}}
+  </el-form-item>
+  <el-form-item label="公司ID">
+      {{formValidate.office.idCode}}
+  </el-form-item>
+  <el-form-item label="手机号码">
+      {{formValidate.mobile}}
+  </el-form-item>
+
+  <el-form-item label="表示名称" prop="name">
+    <el-input v-model="formValidate.name" placeholder="表示名称"></el-input>
+  </el-form-item>
+  <el-form-item label="财务主管" prop="financeId">
+    <el-select v-model="formValidate.financeId" placeholder="请选择财务主管">
+      <el-option :label="item.name" v-for="item in financeUsers" key="item.id" :value="item.id"></el-option>
+    </el-select>
+  </el-form-item>
+  <el-form-item label="邮箱" prop="email">
+    <el-input v-model="formValidate.email" placeholder="邮箱"></el-input>
+  </el-form-item>
+
+  <el-form-item style="margin-bottom:5px;">
+    <el-button type="primary" size="large" :loading="loading" @click="handleSubmit('formValidate')" style="width:140px;">保存</el-button>
+  </el-form-item>
+</el-form>

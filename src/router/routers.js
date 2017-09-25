@@ -88,6 +88,14 @@ export default [
         component: require('@/view/guide/index.vue')
       },
       {
+        name: 'contact',
+        path: '/contact',
+        meta: {
+          title: '联系我们'
+        },
+        component: require('@/view/contact/index.vue')
+      },
+      {
         name: 'message',
         path: '/message',
         meta: {

@@ -1,6 +1,6 @@
 <section>
   <div style="margin-bottom:20px;">
-    <Button type="primary" shape="circle" icon="ios-upload-outline" @click="$router.push('/uploader')">上传发票</Button>
+      <el-button type="primary" @click="$router.push('/uploader')" icon="el-icon-upload2">上传发票</el-button>
   </div>
   <table class="table">
     <thead>
@@ -10,6 +10,7 @@
         <th>发票状态</th>
         <th>开票时间</th>
         <th>上传时间</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
@@ -24,11 +25,26 @@
         </td>
         <td>{{item.fpDate}}</td>
         <td>{{item.createDate}}</td>
+        <td>
+          <el-button type="text" v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="fetchPdf(item.id)" :disabled="isPrinting">
+            <i class="fa fa-print"></i> 打印
+          </el-button>
+          <span v-else>-</span>
+        </td>
       </tr>
       <tr v-if="!data.length">
         <td colspan="4" style="text-align:center;padding:50px 0">无数据</td>
       </tr>
     </tbody>
   </table>
-  <Page v-if="data.length" style="float:right" :current.sync="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator show-total @on-change="onChange"></Page>
+  <el-pagination
+    style="float:right"
+    v-if="data.length"
+    @current-change="onChange"
+    :current-page.sync="pageNo"
+    :page-size="pageSize"
+    layout="total, prev, pager, next"
+    :total="total">
+  </el-pagination>
+  <iframe style="height:100px;width:100%;opacity:0" ref="iframe"></iframe>
 </section>

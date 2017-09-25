@@ -2,7 +2,8 @@ export default {
   name: 'ViewUploader',
   data() {
     return {
-      link: ''
+      link: '',
+      loading: false
     }
   },
   computed: {

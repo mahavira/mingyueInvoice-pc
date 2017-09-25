@@ -1,20 +1,19 @@
 <section>
   <div style="margin-bottom:20px;">
-    <Row>
-      <Col span="14">
-      <Button type="primary" shape="circle" icon="ios-printer-outline" @click="batchPrint" :disabled="isPrinting" style="margin-bottom:70px;">批量打印</Button>
-      <Form ref="formInline" inline>
-        <FormItem>
-          <Input type="text" v-model="createName" placeholder="报销人">
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </Input>
-        </FormItem>
-        <FormItem>
-          <Button type="ghost" shape="circle" icon="ios-search" @click.stop="handleSearch">搜索</Button>
-        </FormItem>
-      </Form>
-      </Col>
-      <Col span="10">
+    <el-row>
+      <el-col :span="14">
+      <el-button type="primary" @click="batchPrint" :disabled="isPrinting" style="margin-bottom:70px;"><i class="fa fa-print"></i> 批量打印</el-button>
+      <el-form :inline="true">
+        <el-form-item label="审批人">
+          <el-input v-model="createName" placeholder="报销人"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSearch"><i class="fa fa-seatch"></i> 确定</el-button>
+        </el-form-item>
+      </el-form>
+
+      </el-col>
+      <el-col :span="10">
       <table class="table table-bordered table-condensed">
         <tbody>
           <tr>
@@ -31,14 +30,14 @@
           </tr>
         </tbody>
       </table>
-      </Col>
-    </Row>
+      </el-col>
+    </el-row>
   </div>
   <table class="table">
     <thead>
       <tr>
         <th>
-          <Checkbox :value="checkedAll" @click.prevent.native="handleCheckAll">全选</Checkbox>
+          <el-checkbox :value="checkedAll" @click.prevent.native="handleCheckAll">全选</el-checkbox>
         </th>
         <th>名称</th>
         <th>报销人</th>
@@ -52,7 +51,7 @@
     <tbody>
       <tr v-if="data.length" v-for="item in data" key="item.id">
         <td>
-          <Checkbox :disabled="item.fpHandleStatus!='2'" :value="checkedIds.indexOf(item.id)>=0" @on-change="handleCheck(item.id)"></Checkbox>
+          <el-checkbox :value="checkedIds.indexOf(item.id)>=0" @change="handleCheck(item.id)"></el-checkbox>
         </td>
         <td>{{item.salesName}}</td>
         <td>{{item.createName.name}}</td>
@@ -66,9 +65,12 @@
         <td>{{item.fpDate}}</td>
         <td>{{item.createDate}}</td>
         <td>
-          <a v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting">
-            <Icon type="ios-printer-outline"></Icon> 打印</a>
-          <span v-else>-</span>
+          <el-button type="text" v-if="item.fpHandleStatus=='2'" href="javascript:;" @click="singlePrint(item)" :disabled="isPrinting">
+            <i class="fa fa-print"></i> 打印
+          </el-button>
+          <el-button v-else type="text" style="color:#a7daff" href="javascript:;" @click="againSinglePrint(item)" :disabled="isPrinting">
+            <i class="fa fa-print"></i> 打印
+          </el-button>
         </td>
       </tr>
       <tr v-if="!data.length">
@@ -76,7 +78,15 @@
       </tr>
     </tbody>
   </table>
-  <Page style="float:right" :current.sync="pageNo" :total="total" :page-size="pageSize" size="small" show-elevator show-total
-    @on-change="onChange"></Page>
+  <el-pagination
+    style="float:right"
+    v-if="data.length"
+    @current-change="onChange"
+    :current-page.sync="pageNo"
+    :page-size="pageSize"
+    layout="total, prev, pager, next"
+    :total="total">
+  </el-pagination>
+
   <iframe style="height:100px;width:100%;opacity:0" ref="iframe"></iframe>
 </section>

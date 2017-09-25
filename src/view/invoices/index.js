@@ -6,7 +6,8 @@ export default {
       data: [],
       total: 0,
       pageSize: 10,
-      pageNo: 1
+      pageNo: 1,
+      isPrinting: false
     }
   },
   methods: {
@@ -21,7 +22,7 @@ export default {
           } else {
             this.data = []
           }
-          this.total = body.res_data.total
+          this.total = body.res_data.count
         } else {
           this.$notify.error({
             title: '错误',
@@ -38,6 +39,59 @@ export default {
     onChange (pageNo) {
       this.pageNo = pageNo
       this.fetch()
+    },
+    fetchPdf(id) {
+      this.$http.post('app/bill/printPdf?invoiceList=' + id, {}).then(({ body }) => {
+        if (body.res_code === 200) {
+          var pdfUrl = window.location.origin + body.res_data
+          this.printPdf(pdfUrl)
+          this.fetchSetPrint(id)
+        } else {
+          this.$notify.error({
+            title: '错误',
+            message: '发票地址获取失败！'
+          })
+          this.isPrinting = false
+        }
+      }, e => {
+        this.$notify.error({
+          title: '错误',
+          message: '发票地址获取失败！'
+        })
+        this.isPrinting = false
+      })
+    },
+    printPdf(url) {
+      var iframe = this.$refs.iframe
+      if (iframe.attachEvent) {
+        iframe.attachEvent('onload', () => {
+          this.isPrinting = false
+          iframe.contentWindow.print()
+        })
+      } else {
+        iframe.onload = () => {
+          this.isPrinting = false
+          iframe.contentWindow.print()
+        }
+        iframe.onerror = () => {
+          console.log('iframe load error')
+          this.isPrinting = false
+        }
+      }
+      iframe.src = url
+    },
+    fetchSetPrint (id) {
+      this.$http.post('app/bill/pdfReadyPrint', {invoiceId: id}).then(({ body }) => {
+        if (body.res_code === 200) {
+          this.data.forEach(item => {
+            if (item.id === id) {
+              item.fpHandleStatus = '3'
+            }
+          })
+        } else {
+        }
+      }, e => {
+      })
     }
   },
   created () {

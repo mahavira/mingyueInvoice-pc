@@ -1,11 +1,12 @@
-<Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="90" style="width: 400px;">
-  <Form-item label="旧密码" prop="oldPassword">
-    <Input v-model="formValidate.oldPassword" placeholder="旧密码" type="password"></Input>
-  </Form-item>
-  <Form-item label="新密码" prop="newPassword">
-    <Input v-model="formValidate.newPassword" placeholder="新密码" type="password"></Input>
-  </Form-item>
-  <Form-item>
-    <Button type="primary" style="width:140px" long  :loading="loading" @click="handleSubmit('formValidate')">提交</Button>
-  </Form-item>
-</Form>
+<el-form ref="formValidate" :model="formValidate" :rules="ruleValidate" label-width="90px" style="width:400px;">
+    <el-form-item label="旧密码" prop="oldPassword">
+      <el-input v-model="formValidate.oldPassword" placeholder="旧密码" type="password"></el-input>
+    </el-form-item>
+    <el-form-item label="新密码" prop="newPassword">
+      <el-input v-model="formValidate.newPassword" placeholder="新密码" type="password"></el-input>
+    </el-form-item>
+  
+    <el-form-item style="margin-bottom:5px;">
+      <el-button type="primary" size="large" :loading="loading" @click="handleSubmit('formValidate')" style="width:140px;">保存</el-button>
+    </el-form-item>
+  </el-form>
