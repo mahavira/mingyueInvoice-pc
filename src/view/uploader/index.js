@@ -3,7 +3,8 @@ export default {
   data() {
     return {
       link: '',
-      loading: false
+      loading: false,
+      fileList: []
     }
   },
   computed: {
@@ -57,12 +58,13 @@ export default {
       })
     },
     onSuccess (res) {
+      this.$refs.upload.clearFiles()
       if (res.res_code != 200) {
         this.$notify.error({
           title: '上传失败',
           message: res.res_data || '上传失败!'
         })
-      return 
+        return 
       }
       this.$notify.success({
         title: '成功',
@@ -77,6 +79,7 @@ export default {
         title: '上传失败',
         message: '服务器无响应'
       })
+      this.$refs.upload.clearFiles()
     }
   },
   created() { },

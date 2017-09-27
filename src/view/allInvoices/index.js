@@ -6,7 +6,7 @@ export default {
     return {
       data: [],
       total: 0,
-      pageSize: 2,
+      pageSize: 10,
       pageNo: 1,
       checkedIds: [],
       pdfUrl: '',

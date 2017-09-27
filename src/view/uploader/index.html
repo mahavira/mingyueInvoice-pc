@@ -13,13 +13,14 @@
   <p style="margin-bottom:10px;">文件上传：</p>
   <el-upload
     drag
+    ref="upload"
     name="pdf"
     :data="data"
     :headers="headers"
     :action="$conf.serverRoot + 'app/bill/uploadPdf'"
     :on-success="onSuccess"
     :on-error="onError"
-    :show-file-list="false"
+    :file-list="fileList"
     accept="application/pdf"
     >
     <i class="el-icon-upload"></i>
