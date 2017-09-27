@@ -1,4 +1,10 @@
 import { isArray, forEach } from 'lodash'
+window.onfocus = function () {
+  console.log('onfocus')
+}
+window.onblur = function () {
+  console.log('onblur')
+}
 
 export default {
   name: 'ViewAllInvoices',
@@ -89,15 +95,19 @@ export default {
       var url = this.pdfUrl
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
-          this.isPrinting = false
-          // iframe.focus()
-          iframe.contentWindow.print()
+          setTimeout(() => {
+            this.isPrinting = false
+            // iframe.focus()
+            iframe.contentWindow.print()
+          }, 3000)
         })
       } else {
         iframe.onload = () => {
-          this.isPrinting = false
-          // iframe.focus()
-          iframe.contentWindow.print()
+          setTimeout(() => {
+            this.isPrinting = false
+            // iframe.focus()
+            iframe.contentWindow.print()
+          }, 3000)
         }
         iframe.onerror = () => {
           console.log('iframe load error')

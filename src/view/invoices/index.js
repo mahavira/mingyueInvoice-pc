@@ -65,13 +65,17 @@ export default {
       var iframe = this.$refs.iframe
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
-          this.isPrinting = false
-          iframe.contentWindow.print()
+          setTimeout(() => {
+            this.isPrinting = false
+            iframe.contentWindow.print()
+          }, 3000)
         })
       } else {
         iframe.onload = () => {
-          this.isPrinting = false
-          iframe.contentWindow.print()
+          setTimeout(() => {
+            this.isPrinting = false
+            iframe.contentWindow.print()
+          }, 3000)
         }
         iframe.onerror = () => {
           console.log('iframe load error')
