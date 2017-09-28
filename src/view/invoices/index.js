@@ -7,11 +7,13 @@ export default {
       total: 0,
       pageSize: 10,
       pageNo: 1,
-      isPrinting: false
+      isPrinting: false,
+      isLoading: false
     }
   },
   methods: {
     fetch(attributes) {
+      this.isLoading = true
       this.$http.post('app/bill/getMyBills', {
         pageNo: this.pageNo,
         pageSize: this.pageSize
@@ -29,11 +31,13 @@ export default {
             message: '数据获取失败！'
           })
         }
+        this.isLoading = false
       }, e => {
         this.$notify.error({
           title: '错误',
           message: '数据获取失败！'
         })
+        this.isLoading = false
       })
     },
     onChange (pageNo) {

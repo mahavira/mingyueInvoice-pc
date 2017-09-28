@@ -33,7 +33,7 @@
       </el-col>
     </el-row>
   </div>
-  <table class="table">
+  <table class="table" v-loading="isLoading" element-loading-text="数据请求中">
     <thead>
       <tr>
         <th>
@@ -73,7 +73,7 @@
           </el-button>
         </td>
       </tr>
-      <tr v-if="!data.length">
+      <tr v-if="!data.length&&!isLoading">
         <td colspan="8" style="text-align:center;padding:50px 0">无数据</td>
       </tr>
     </tbody>

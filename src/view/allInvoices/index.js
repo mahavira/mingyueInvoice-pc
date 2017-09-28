@@ -12,12 +12,13 @@ export default {
     return {
       data: [],
       total: 0,
-      pageSize: 10,
+      pageSize: 3,
       pageNo: 1,
       checkedIds: [],
       pdfUrl: '',
       contract: {},
       isPrinting: false,
+      isLoading: false,
       createName: ''
     }
   },
@@ -142,6 +143,7 @@ export default {
       })
     },
     fetch() {
+      this.isLoading = true
       this.$http.post('app/bill/getBillsMsg', {
         pageNo: this.pageNo,
         pageSize: this.pageSize,
@@ -164,11 +166,13 @@ export default {
             message: '数据获取失败！'
           })
         }
+        this.isLoading = false
       }, e => {
         this.$notify.error({
           title: '错误',
           message: '数据获取失败！'
         })
+        this.isLoading = false
       })
     },
     onChange(pageNo) {

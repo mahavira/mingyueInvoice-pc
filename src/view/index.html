@@ -2,10 +2,10 @@
   <MainHeader></MainHeader>
   <div class="layout-container">
     <el-row :gutter="20">
-      <el-col :span="5" style="max-width:250px;">
+      <el-col :md="5" class="layout-sidebar">
         <ComponentsMainMenu :data="menu" :onSelect="onSelect"></ComponentsMainMenu>
       </el-col>
-      <el-col :span="19" class="layout-content-warp">
+      <el-col :md="19" class="layout-content-warp">
         <div class="layout-content">
           <div class="layout-content-main">
             <transition name="slide-fade" mode="out-in">

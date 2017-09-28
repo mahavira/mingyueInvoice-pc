@@ -71,3 +71,12 @@
   color: #9ea7b4;
   padding: 20px;
 }
+.layout-sidebar {
+  max-width:250px;
+}
+@media screen and (max-width: 992px) {
+  .layout-sidebar {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}

@@ -250,7 +250,7 @@
       <a href="javascript:;"><img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1062989499,1682648318&fm=58" alt=""></a>
     </div>
     <p class="text">
-        <div style="color:#FFF"><span>服务热线：010-5165-0789/15201271707</span><span style="padding-left: 40px;">QQ在线：2220862365</span> </div>
+        <div style="color:#FFF"><span>服务热线：010-5165-0789/<span id="dynamicPhone">2220862365</span></span><span style="padding-left: 40px;">QQ在线：<span id="dynamicQQ">2220862365</span></span> </div>
       Copyright © 2012-2017 www.bj-dbd.com All Rights Reserved. 网站备案编号：京ICP备13008266号 北京栋邦达科技有限公司</p>
   </div>
 
@@ -294,7 +294,7 @@
           }
           form[name] = value
         }
-        $.get("/project_dzff/a/dzff/touristMsg/save", form, function (data) {
+        $.post("/project_dzff/app/message/addTouristMsg", form, function (data) {
           if (data.res_code === 200) {
             alert('感谢您的支持！')
           } else {
@@ -305,6 +305,15 @@
         })
         return false
       })
+
+      $.post("/project_dzff/app/message/query", {}, function (data) {
+          if (data.res_code === 200) {
+            $('#dynamicPhone').text(data.res_data)
+            $('#dynamicQQ').text(data.res_data1)
+          } else {
+          }
+        }, function () {
+        })
     })
   </script>
 </body>

@@ -47,10 +47,9 @@ export default {
     },
     fetch() {
       this.loading = true
-      var fields = Object.assign({
-        id: this.$store.state.userinfo.id
-      }, this.formValidate)
       for (var key in this.urls) {
+        var fields = {id: this.$store.state.userinfo.id}
+        fields[key] = this.formValidate[key]
         this.$http.post(this.urls[key], fields).then(({body}) => {
           if (body.res_code === 200) {
             this.$notify.success({
