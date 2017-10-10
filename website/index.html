@@ -294,22 +294,33 @@
           }
           form[name] = value
         }
-        $.post("/project_dzff/app/message/addTouristMsg", form, function (data) {
-          if (data.res_code === 200) {
-            alert('感谢您的支持！')
-          } else {
+        $.ajax({
+          type: "POST",
+          url: "/project_dzff/app/message/addTouristMsg",
+          data: form,
+          dataType: 'json',
+          success: function(data){
+            if (data.res_code == 200) {
+              alert('感谢您的支持！')
+              $("#form input[name='touristName']").val('')
+              $("#form input[name='mobile']").val('')
+              $("#form input[name='email']").val('')
+              $("#form textarea[name='touristContent']").val('')
+            } else {
+              alert(data.res_data || '提交失败！')
+            }
+          },
+          error: function(msg){
             alert(data.res_data || '提交失败！')
           }
-        }, function () {
-          alert(data.res_data || '提交失败！')
-        })
+        });
         return false
       })
 
       $.post("/project_dzff/app/message/query", {}, function (data) {
-          if (data.res_code === 200) {
-            $('#dynamicPhone').text(data.res_data)
-            $('#dynamicQQ').text(data.res_data1)
+          if (data.res_code == 200) {
+            $('#dynamicPhone').text(data.phone)
+            $('#dynamicQQ').text(data.qq)
           } else {
           }
         }, function () {
