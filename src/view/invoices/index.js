@@ -27,6 +27,7 @@ export default {
         if (body.res_code === 200) {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
+            this.limitMoney = body.res_data1
           } else {
             this.data = []
           }
@@ -47,9 +48,8 @@ export default {
       })
     },
     singlePrintBefore (item) {
-      var sumWithTax = parseInt(item.sumWithTax)
-      var limitMoney = parseInt(this.$store.state.userinfo.limitMoney)
-      console.log(sumWithTax, limitMoney)
+      var sumWithTax = parseFloat(item.sumWithTax)
+      var limitMoney = parseFloat(this.limitMoney)
       if (limitMoney && sumWithTax > limitMoney) {
         this.$notify.error({
           title: '不可打印',
@@ -62,6 +62,5 @@ export default {
   },
   created () {
     this.fetch()
-    this.limitMoney = this.$store.state.userinfo.limitMoney
   }
 }

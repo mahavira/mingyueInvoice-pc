@@ -9,7 +9,7 @@
         <span> - </span>
         <el-input v-model="formValidate.endMoney" placeholder="" style="width:100px;" @keyup.enter.native="handleSearch"></el-input>
       </el-form-item>
-      <el-form-item label="活动时间">
+      <el-form-item label="上传时间">
         <el-date-picker type="date" placeholder="开始日期" style="width:130px;" v-model="formValidate.beginDate" @keyup.enter.native="handleSearch"></el-date-picker>
         <span> - </span>
         <el-date-picker type="date" placeholder="结束时间" style="width:130px;" v-model="formValidate.endDate" @keyup.enter.native="handleSearch"></el-date-picker>
@@ -70,4 +70,8 @@
     :total="total">
   </el-pagination>
   <iframe style="height:100px;width:100%;opacity:0" ref="iframe"></iframe>
+  <el-dialog class="dialog-iframe" :visible.sync="dialogVisible" size="full">
+    <iframe style="height:100vh;width:100%" frameborder=0 border=0 allowtransparency=yes marginheight=0 marginwidth=0 ref="dialogIframe"
+      :src="dialogPrintUrl"></iframe>
+  </el-dialog>
 </section>
