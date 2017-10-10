@@ -1,0 +1,41 @@
+.dialog-iframe .el-dialog__body{
+  padding: 0
+}
+.dialog-iframe .el-dialog__header{
+  padding: 0;
+  position: absolute;
+  top: 7px;
+  right: 11px;
+}
+.dialog-iframe  .el-dialog--full{
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  transform: translateX(0);
+  -ms-transform: translateX(0);
+}
+
+.dialog-iframe .el-dialog__header{
+  top: 0;
+  right: 0;
+  padding: 8px 10px;
+  border: 1px solid #474747;
+  margin: 4px;
+  padding: 3px 7px;
+  cursor: pointer
+}
+.dialog-iframe .el-dialog__headerbtn {
+  font-size: 13px;
+}
+.dialog-iframe  .el-dialog__headerbtn .el-dialog__close{
+  color: #DCDCDC
+}
+.dialog-iframe .el-dialog__header:hover, 
+.dialog-iframe .el-dialog__header:focus {
+  background-color: hsla(0,0%,0%,.12);
+  background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+  background-clip: padding-box;
+  border: 1px solid hsla(0,0%,0%,.35);
+  border-color: hsla(0,0%,0%,.32) hsla(0,0%,0%,.38) hsla(0,0%,0%,.42);
+  box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset, 0 0 1px hsla(0,0%,100%,.15) inset, 0 1px 0 hsla(0,0%,100%,.05);
+}

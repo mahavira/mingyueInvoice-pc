@@ -24,5 +24,10 @@ export default [
     name: "修改密码",
     icon: "el-icon-edit",
     path: "/password"
+  },
+  {
+    name: "财务专用",
+    icon: "el-icon-document",
+    path: "/finance"
   }
 ];

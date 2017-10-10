@@ -2,34 +2,43 @@
   <div style="margin-bottom:20px;">
     <el-row>
       <el-col :span="14">
-      <el-button type="primary" @click="batchPrint" :disabled="isPrinting" style="margin-bottom:70px;"><i class="fa fa-print"></i> 批量打印</el-button>
-      <el-form :inline="true">
-        <el-form-item label="审批人">
-          <el-input v-model="createName" placeholder="报销人"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleSearch"><i class="fa fa-seatch"></i> 确定</el-button>
-        </el-form-item>
-      </el-form>
-
+        <el-button type="primary" @click="batchPrint" :disabled="isPrinting" style="margin-bottom:20px;"><i class="fa fa-print"></i> 批量打印</el-button>
+        <el-form ref="formValidate" :model="formValidate" label-width="80px" label-position="left">
+          <el-form-item label="审批人">
+            <el-input v-model="formValidate.createName" placeholder="报销人" style="max-width:200px;" @keyup.enter.native="handleSearch"></el-input>
+          </el-form-item>
+          <el-form-item label="金额区间">
+            <el-input v-model="formValidate.beginMoney" placeholder="" style="width:100px;" @keyup.enter.native="handleSearch"></el-input>
+            <span> - </span>
+            <el-input v-model="formValidate.endMoney" placeholder="" style="width:100px;" @keyup.enter.native="handleSearch"></el-input>
+          </el-form-item>
+          <el-form-item label="活动时间">
+            <el-date-picker type="date" placeholder="开始日期" style="width:130px;" v-model="formValidate.beginDate" @keyup.enter.native="handleSearch"></el-date-picker>
+            <span> - </span>
+            <el-date-picker type="date" placeholder="结束时间" style="width:130px;" v-model="formValidate.endDate" @keyup.enter.native="handleSearch"></el-date-picker>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="handleSearch"><i class="fa fa-search"></i> 确定 </el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
       <el-col :span="10">
-      <table class="table table-bordered table-condensed">
-        <tbody>
-          <tr>
-            <th>服务到期时间</th>
-            <td>{{contract.payEndTime|slice(0, 10) || '-'}}</td>
-          </tr>
-          <tr>
-            <th>本月可使用发票额度</th>
-            <td>{{contract.monthUpperLimit || '-'}}</td>
-          </tr>
-          <tr>
-            <th>本月已使用发票额度</th>
-            <td>{{contract.use || '-'}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table table-bordered table-condensed">
+          <tbody>
+            <tr>
+              <th>服务到期时间</th>
+              <td>{{contract.payEndTime|slice(0, 10) || '-'}}</td>
+            </tr>
+            <tr>
+              <th>本月可使用发票额度</th>
+              <td>{{contract.monthUpperLimit || '-'}}</td>
+            </tr>
+            <tr>
+              <th>本月已使用发票额度</th>
+              <td>{{contract.use || '-'}}</td>
+            </tr>
+          </tbody>
+        </table>
       </el-col>
     </el-row>
   </div>
@@ -78,15 +87,14 @@
       </tr>
     </tbody>
   </table>
-  <el-pagination
-    style="float:right"
-    v-if="data.length"
-    @current-change="onChange"
-    :current-page.sync="pageNo"
-    :page-size="pageSize"
-    layout="total, prev, pager, next"
-    :total="total">
+  <el-pagination style="float:right" v-if="data.length" @current-change="onChange" :current-page.sync="pageNo" :page-size="pageSize"
+    layout="total, prev, pager, next" :total="total">
   </el-pagination>
-
   <iframe style="height:100px;width:100%;opacity:0" ref="iframe"></iframe>
+  <el-dialog class="dialog-iframe" :visible.sync="dialogVisible" size="full">
+    <iframe style="height:100vh;width:100%" frameborder=0 border=0 allowtransparency=yes marginheight=0 marginwidth=0 ref="dialogIframe"
+      :src="dialogPrintUrl"></iframe>
+  </el-dialog>
+  <!-- <el-button type="text" @click="printPdf('/static/sock.pdf')" ><i class="fa fa-print"></i> 打印测试</el-button>
+  <el-button type="text" @click="dialogPrint('/static/sock.pdf')" ><i class="fa fa-print"></i> 打印测试</el-button> -->
 </section>

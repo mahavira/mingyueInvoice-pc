@@ -1,23 +1,29 @@
 import {isArray} from 'lodash'
+import invoice from '@/mixins/invoice'
 export default {
   name: 'ViewInvoices',
+  mixins: [invoice],
   data () {
     return {
-      data: [],
-      total: 0,
-      pageSize: 10,
-      pageNo: 1,
-      isPrinting: false,
-      isLoading: false
+      limitMoney: '',
+      formValidate: {
+        beginMoney: '',
+        endMoney: '',
+        beginDate: '',
+        endDate: ''
+      }
     }
   },
   methods: {
     fetch(attributes) {
       this.isLoading = true
-      this.$http.post('app/bill/getMyBills', {
+      this.$http.post('app/bill/getMyBills', Object.assign({
         pageNo: this.pageNo,
         pageSize: this.pageSize
-      }).then(({body}) => {
+      }, this.formValidate, {
+        beginDate: this.formValidate.beginDate ? this.formatDate(this.formValidate.beginDate) : '',
+        endDate: this.formValidate.endDate ? this.formatDate(this.formValidate.endDate) : ''
+      })).then(({body}) => {
         if (body.res_code === 200) {
           if (body.res_data.list && isArray(body.res_data.list)) {
             this.data = body.res_data.list
@@ -28,7 +34,7 @@ export default {
         } else {
           this.$notify.error({
             title: '错误',
-            message: '数据获取失败！'
+            message: body.res_data || '数据获取失败！'
           })
         }
         this.isLoading = false
@@ -40,69 +46,22 @@ export default {
         this.isLoading = false
       })
     },
-    onChange (pageNo) {
-      this.pageNo = pageNo
-      this.fetch()
-    },
-    fetchPdf(id) {
-      this.$http.post('app/bill/printPdf?invoiceList=' + id, {}).then(({ body }) => {
-        if (body.res_code === 200) {
-          var pdfUrl = window.location.origin + body.res_data
-          this.printPdf(pdfUrl)
-          this.fetchSetPrint(id)
-        } else {
-          this.$notify.error({
-            title: '错误',
-            message: '发票地址获取失败！'
-          })
-          this.isPrinting = false
-        }
-      }, e => {
+    singlePrintBefore (item) {
+      var sumWithTax = parseInt(item.sumWithTax)
+      var limitMoney = parseInt(this.$store.state.userinfo.limitMoney)
+      console.log(sumWithTax, limitMoney)
+      if (limitMoney && sumWithTax > limitMoney) {
         this.$notify.error({
-          title: '错误',
-          message: '发票地址获取失败！'
+          title: '不可打印',
+          message: '此发票金额超过单张发票最大金额'
         })
-        this.isPrinting = false
-      })
-    },
-    printPdf(url) {
-      var iframe = this.$refs.iframe
-      if (iframe.attachEvent) {
-        iframe.attachEvent('onload', () => {
-          setTimeout(() => {
-            this.isPrinting = false
-            iframe.contentWindow.print()
-          }, 3000)
-        })
-      } else {
-        iframe.onload = () => {
-          setTimeout(() => {
-            this.isPrinting = false
-            iframe.contentWindow.print()
-          }, 3000)
-        }
-        iframe.onerror = () => {
-          console.log('iframe load error')
-          this.isPrinting = false
-        }
+        return
       }
-      iframe.src = url
-    },
-    fetchSetPrint (id) {
-      this.$http.post('app/bill/pdfReadyPrint', {invoiceId: id}).then(({ body }) => {
-        if (body.res_code === 200) {
-          this.data.forEach(item => {
-            if (item.id === id) {
-              item.fpHandleStatus = '3'
-            }
-          })
-        } else {
-        }
-      }, e => {
-      })
+      this.singlePrint(item)
     }
   },
   created () {
     this.fetch()
+    this.limitMoney = this.$store.state.userinfo.limitMoney
   }
 }

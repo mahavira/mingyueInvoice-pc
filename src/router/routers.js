@@ -80,6 +80,14 @@ export default [
         component: require('@/view/password/index.vue')
       },
       {
+        name: 'finance',
+        path: '/finance',
+        meta: {
+          title: '账务专用'
+        },
+        component: require('@/view/finance/index.vue')
+      },
+      {
         name: 'guide',
         path: '/guide',
         meta: {
