@@ -1,4 +1,4 @@
-import { isArray } from 'lodash'
+import { isArray, forEach } from 'lodash'
 window.onfocus = function () {
   console.log('onfocus')
 }
@@ -33,7 +33,16 @@ export default {
   computed: {
     checkedAll() {
       if (!this.data.length) return false
-      return this.checkedIds.length >= this.data.length
+      var result = true
+      forEach(this.data, item => {
+        if (item.fpHandleStatus != '3') {
+          if (this.checkedIds.indexOf(item.id) < 0) {
+            result = false
+            return
+          }
+        }
+      })
+      return result
     }
   },
   methods: {
@@ -167,8 +176,8 @@ export default {
       if (this.checkedAll) {
         this.checkedIds = []
       } else {
-        this.data.forEach(item => {
-          if (this.checkedIds.indexOf(item.id) < 0) {
+        forEach(this.data, item => {
+          if (this.checkedIds.indexOf(item.id) < 0 && item.fpHandleStatus != '3') {
             this.checkedIds.push(item.id)
           }
         })

@@ -1,4 +1,4 @@
-import {isArray, forEach} from 'lodash'
+import {isArray} from 'lodash'
 import invoice from '@/mixins/invoice'
 export default {
   name: 'ViewInvoices',
@@ -12,21 +12,6 @@ export default {
         beginDate: '',
         endDate: ''
       }
-    }
-  },
-  computed: {
-    checkedAll() {
-      if (!this.data.length) return false
-      var result = true
-      forEach(this.data, item => {
-        if (item.fpHandleStatus != '3') {
-          if (this.checkedIds.indexOf(item.id) < 0) {
-            result = false
-            return
-          }
-        }
-      })
-      return result
     }
   },
   methods: {
@@ -73,17 +58,6 @@ export default {
         return
       }
       this.singlePrint(item)
-    },
-    handleCheckAll() {
-      if (this.checkedAll) {
-        this.checkedIds = []
-      } else {
-        forEach(this.data, item => {
-          if (this.checkedIds.indexOf(item.id) < 0 && item.fpHandleStatus != '3') {
-            this.checkedIds.push(item.id)
-          }
-        })
-      }
     }
   },
   created () {
