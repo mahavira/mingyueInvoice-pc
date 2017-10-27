@@ -1,4 +1,4 @@
-import {isArray} from 'lodash'
+import {isArray, forEach} from 'lodash'
 import invoice from '@/mixins/invoice'
 export default {
   name: 'ViewInvoices',
@@ -48,9 +48,7 @@ export default {
       })
     },
     singlePrintBefore (item) {
-      var sumWithTax = parseFloat(item.sumWithTax)
-      var limitMoney = parseFloat(this.limitMoney)
-      if (limitMoney && sumWithTax > limitMoney) {
+      if (this.isExceedMaxMoney(item.sumWithTax)) {
         this.$notify.error({
           title: '不可打印',
           message: '此发票金额超过单张发票最大金额'
@@ -58,6 +56,21 @@ export default {
         return
       }
       this.singlePrint(item)
+    },
+    isExceedMaxMoney (money) {
+      var limitMoney = parseFloat(this.limitMoney)
+      return limitMoney && parseFloat(money) > limitMoney
+    },
+    handleCheckAll() {
+      if (this.checkedAll) {
+        this.checkedIds = []
+      } else {
+        forEach(this.data, item => {
+          if (this.checkedIds.indexOf(item.id) < 0 && item.fpHandleStatus != '3' && !this.isExceedMaxMoney(item.sumWithTax)) {
+            this.checkedIds.push(item.id)
+          }
+        })
+      }
     }
   },
   created () {

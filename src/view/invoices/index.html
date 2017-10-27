@@ -36,7 +36,7 @@
     <tbody>
       <tr v-if="data.length" v-for="item in data">
         <td>
-          <el-checkbox :disabled="item.fpHandleStatus!='2'" :value="checkedIds.indexOf(item.id)>=0" @change="handleCheck(item.id)"></el-checkbox>
+          <el-checkbox :disabled="item.fpHandleStatus!='2'||isExceedMaxMoney(item.sumWithTax)" :value="checkedIds.indexOf(item.id)>=0" @change="handleCheck(item.id)"></el-checkbox>
         </td>
         <td>{{item.salesName}}</td>
         <td>{{item.sumWithTax}}</td>
