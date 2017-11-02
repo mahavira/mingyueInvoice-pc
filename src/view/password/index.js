@@ -1,11 +1,21 @@
 export default {
   name: 'ViewPassword',
   data() {
+    const validatePassCheck = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入新密码'))
+      } else if (value !== this.formValidate.newPassword) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       formValidate: {
         oldPassword: '',
-        newPassword: ''
+        newPassword: '',
+        confirmPassword: ''
       },
       ruleValidate: {
         oldPassword: [
@@ -14,6 +24,10 @@ export default {
         newPassword: [
           { required: true, message: '请输入新密码', trigger: 'blur' },
           { min: 6, message: '密码不足6位数', trigger: 'blur' }
+        ],
+        confirmPassword: [
+          { required: true, message: '请再次输入新密码', trigger: 'blur' },
+          { validator: validatePassCheck, trigger: 'blur' }
         ]
       }
     }
@@ -36,6 +50,7 @@ export default {
           })
           this.oldPassword = ''
           this.newPassword = ''
+          this.confirmPassword = ''
         } else {
           this.$notify.error({
             title: '错误',

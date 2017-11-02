@@ -36,17 +36,16 @@ export default {
       }).then(({body}) => {
         if (body.res_code === 200) {
           this.$notify.success({
-            title: '错误',
+            title: '成功',
             message: '上传成功'
           })
           this.link = ''
-          this.$router.push('/')
         } else {
-          console.log(body)
           this.$notify.error({
             title: '上传失败',
             message: body.res_data || '上传失败!'
           })
+          this.link = ''
         }
         this.loading = false
       }, e => {
@@ -70,9 +69,6 @@ export default {
         title: '成功',
         message: '上传成功'
       })
-      setTimeout(() => {
-        this.$router.push('/')
-      }, 1000)
     },
     onError () {
       this.$notify.error({

@@ -14,11 +14,6 @@ export default {
         email: [
           { required: true, message: '请输入Email', trigger: 'blur' }
         ]
-      },
-      urls: {
-        name: 'app/user/updateUserName',
-        email: 'app/user/updateEmail',
-        financeId: 'app/user/updateUserFinance'
       }
     }
   },
@@ -45,33 +40,61 @@ export default {
         }
       })
     },
+    // fetch() {
+    //   this.loading = true
+    //   for (var key in this.urls) {
+    //     var fields = {id: this.$store.state.userinfo.id}
+    //     fields[key] = this.formValidate[key]
+    //     this.$http.post(this.urls[key], fields).then(({body}) => {
+    //       if (body.res_code === 200) {
+    //         this.$notify.success({
+    //           title: '成功',
+    //           message: '修改成功'
+    //         })
+    //         this.$store.commit('setUserinfo', {})
+    //       } else {
+    //         this.$notify.error({
+    //           title: '错误',
+    //           message: body.res_data ? body.res_data : '修改失败'
+    //         })
+    //       }
+    //       this.loading = false
+    //     }, (xhr) => {
+    //       this.$notify.error({
+    //         title: '错误',
+    //         message: '修改失败'
+    //       })
+    //       this.loading = false
+    //     })
+    //   }
+    // },
     fetch() {
       this.loading = true
-      for (var key in this.urls) {
-        var fields = {id: this.$store.state.userinfo.id}
+      var fields = {}
+      for (var key in this.ruleValidate) {
         fields[key] = this.formValidate[key]
-        this.$http.post(this.urls[key], fields).then(({body}) => {
-          if (body.res_code === 200) {
-            this.$notify.success({
-              title: '成功',
-              message: '修改成功'
-            })
-            this.$store.commit('setUserinfo', {})
-          } else {
-            this.$notify.error({
-              title: '错误',
-              message: body.res_data ? body.res_data : '修改失败'
-            })
-          }
-          this.loading = false
-        }, (xhr) => {
+      }
+      this.$http.post('app/user/updateUser', fields).then(({body}) => {
+        if (body.res_code === 200) {
+          this.$notify.success({
+            title: '成功',
+            message: '修改成功'
+          })
+          this.$store.commit('setUserinfo', {})
+        } else {
           this.$notify.error({
             title: '错误',
-            message: '修改失败'
+            message: body.res_data ? body.res_data : '修改失败'
           })
-          this.loading = false
+        }
+        this.loading = false
+      }, (xhr) => {
+        this.$notify.error({
+          title: '错误',
+          message: '修改失败'
         })
-      }
+        this.loading = false
+      })
     }
   },
   created() {
