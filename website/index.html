@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -27,7 +27,9 @@
         <span class="cut">|</span>
         <a href="#message" class="item">联系我们</a>
         <span class="cut">|</span>
-        <a href="/da" target="_blank" class="item">明阅系统入口</a>
+        <a href="/pc_client" target="_blank" class="item">明阅系统入口</a>
+        <span class="cut">|</span>
+        <a href="./question/index.html" target="_blank" class="item">常见问题</a>
         <span class="cut">|</span>
         <a href="/dbd_pdf/明阅电子发票助手-用户手册V1.0.doc" target="_blank" class="item">用户手册</a>
       </div>
@@ -337,7 +339,7 @@
         }
         $.ajax({
           type: "POST",
-          url: "/project_dzff/app/message/addTouristMsg",
+          url: "/dzfp_project/app/message/addTouristMsg",
           data: form,
           dataType: 'json',
           success: function(data){
@@ -358,7 +360,7 @@
         return false
       })
 
-      $.post("/project_dzff/app/message/query", {}, function (data) {
+      $.post("/dzfp_project/app/message/query", {}, function (data) {
           if (data.res_code == 200) {
             if(data.phone) $('.dynamicPhone').text(data.phone)
             if(data.qq) $('.dynamicQQ').text(data.qq)

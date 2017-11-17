@@ -59,15 +59,15 @@ export default {
     },
     isExceedMaxMoney (money) {
       var limitMoney = parseFloat(this.limitMoney)
-      return limitMoney && parseFloat(money) > limitMoney
+      return parseFloat(money) > limitMoney
     },
     handleCheckAll() {
       if (this.checkedAll) {
         this.checkedIds = []
       } else {
         forEach(this.data, item => {
-          if (this.checkedIds.indexOf(item.id) < 0 && item.fpHandleStatus != '3' && !this.isExceedMaxMoney(item.sumWithTax)) {
-            this.checkedIds.push(item.id)
+          if (this.checkedIds.indexOf(item.id) <= 0 && item.fpHandleStatus != '3' && !this.isExceedMaxMoney(item.sumWithTax)) {
+              this.checkedIds.push(item.id)  
           }
         })
       }

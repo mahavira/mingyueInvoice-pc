@@ -2,7 +2,7 @@
   <div style="margin-bottom:20px;">
     <el-button type="primary" @click="batchPrint" :disabled="isPrinting" style="margin-bottom:20px;"><i class="fa fa-print"></i> 批量打印</el-button>
 
-    <span style="margin-left:50px;" if="limitMoney">可打印单张发票的最大金额：<span>￥{{limitMoney}}</span></span>
+    <span style="margin-left:50px;" if="limitMoney">报销人员可打印输出发票的最大金额：<span>￥{{limitMoney}}</span></span>
     <el-form ref="formValidate" :model="formValidate" label-width="80px" label-position="left">
       <el-form-item label="金额区间">
         <el-input v-model="formValidate.beginMoney" placeholder="" style="width:100px;" @keyup.enter.native="handleSearch"></el-input>

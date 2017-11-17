@@ -37,26 +37,26 @@ export default {
         if (body.res_code === 200) {
           this.$notify.success({
             title: '成功',
-            message: '上传成功'
+            message: '提交成功'
           })
           this.link = ''
         } else {
           this.$notify.error({
-            title: '上传失败',
-            message: body.res_data || '上传失败!'
+            title: '失败',
+            message: body.res_data || '提交失败!'
           })
           this.link = ''
         }
         this.loading = false
       }, e => {
         this.$notify.error({
-          title: '上传失败',
+          title: '失败',
           message: '服务器无响应'
         })
         this.loading = false
       })
     },
-    onSuccess (res) {
+    onSuccess (res, file, fileList) {
       this.$refs.upload.clearFiles()
       if (res.res_code != 200) {
         this.$notify.error({
@@ -70,7 +70,7 @@ export default {
         message: '上传成功'
       })
     },
-    onError () {
+    onError (error, file, fileList) {
       this.$notify.error({
         title: '上传失败',
         message: '服务器无响应'

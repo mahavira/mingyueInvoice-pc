@@ -27,7 +27,14 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    //proxyTable: {},   //上线版
+    proxyTable: {  
+      '/project_dzff/': {  
+        target: 'http://120.92.45.7/', //域名  
+        secure: false,  
+        changeOrigin: false,  
+      }  
+    },  //测试版
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

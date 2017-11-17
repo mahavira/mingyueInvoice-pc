@@ -1,11 +1,23 @@
-<div class="layout-ceiling">
+<div class="layout-ceiling" style="padding-top:0px;padding-left:0px;padding-right:0px;">
   <div class="logo">
-    <img src="../../assets/logo.png" alt="LOGO"> 
+    <img style="margin-top:20px;margin-left:10px" src="../../assets/logo.png" alt="LOGO"> 
   </div>
-  <h1 class="logo-title">{{$conf.title}}</h1>
-  <div class="layout-ceiling-main">
-    <router-link to="/message" style="font-size:25px"><i class="el-icon-message message-box"><span v-show="isNewMessage" class="new-message"></span></i></router-link>
-    <router-link to="/settings">{{userinfo.name}}</router-link>
+  <h1 class="logo-title font-color" style="margin-top:20px;">{{$conf.title}}</h1>
+  <div class="layout-ceiling-main font-color" >
+    <a><router-link to="/message" align=absMiddle border=0 >我的消息  <i class="el-icon-message message-box"><span v-show="isNewMessage" class="new-message"></span></i></router-link></a>
     <a @click="logout" href="javascript:;">退出</a>
+  </div>
+  <div style="display: block; height: 100px; width:100%"></div>
+  <div class="wel-user">
+    <router-link to="/settings" ><img  style="line-height:30px;float:left" src="../images/nav_pre.gif">
+      <td  style="line-height:30px;float:left;"><a  class="font-color">当前登录用户： {{userinfo.name}}</a></td>
+      <td  style="line-height:30px;float:right;padding-right:10px;"><span>
+        <a href="javascript:history.go(-1);" class="font-color">
+        <img src="../images/nav_back.gif" align=absMiddle border=0>后退</a> 
+        <a href="javascript:history.go(1);" class="font-color">
+        <img src="../images/nav_forward.gif" align=absMiddle border=0>前进</a>
+      </span>
+      </td>
+    </router-link>
   </div>
 </div>

@@ -19,6 +19,7 @@
     :headers="headers"
     :action="$conf.serverRoot + 'app/bill/uploadPdf'"
     :on-success="onSuccess"
+    :multiple="true"
     :on-error="onError"
     :file-list="fileList"
     accept="application/pdf"
