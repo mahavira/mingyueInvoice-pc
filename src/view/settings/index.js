@@ -4,6 +4,7 @@ export default {
   data() {
     return {
       loading: false,
+      loadingCancel: false,
       ruleValidate: {
         name: [
           { required: true, message: '请输入表示名称', trigger: 'blur' }
@@ -94,6 +95,31 @@ export default {
           message: '修改失败'
         })
         this.loading = false
+      })
+    },
+    handleCancelAccount () {
+      this.loadingCancel = false
+      this.$http.post('app/bill/delete', {}).then(({body}) => {
+        if (body.res_code === 200) {
+          this.$notify.success({
+            title: '成功',
+            message: '注销成功！'
+          })
+          this.$store.commit('setUserinfo', {})
+          window.location.href = '#/login'
+        } else {
+          this.$notify.error({
+            title: '错误',
+            message: body.res_data ? body.res_data : '注销失败！'
+          })
+        }
+        this.loadingCancel = false
+      }, (xhr) => {
+        this.$notify.error({
+          title: '错误',
+          message: '注销失败！'
+        })
+        this.loadingCancel = false
       })
     }
   },

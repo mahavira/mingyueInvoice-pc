@@ -30,7 +30,6 @@ const store = new Vuex.Store({
           activeName = route.path
         }
       })
-      console.log(activeName)
       state.menuActiveName = activeName
     },
     set(state, data) {
@@ -71,5 +70,4 @@ function recursiveBreadcrumb(key, val, data, index, result) {
   }
   return false
 }
-console.log(store.state.userinfo)
 export default store

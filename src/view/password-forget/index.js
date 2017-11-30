@@ -77,7 +77,7 @@ export default {
     },
     validateSmsCode() {
       this.loading = true
-      this.$http.post('app/login/forgetPassword', this.formValidate).then(({body}) => {
+      this.$http.post('app/login/checkCode', this.formValidate).then(({body}) => {
         if (body.res_code === 200) {
           this.step = 2
         } else {

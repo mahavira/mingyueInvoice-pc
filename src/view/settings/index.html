@@ -26,5 +26,6 @@
 
   <el-form-item style="margin-bottom:5px;">
     <el-button type="primary" size="large" :loading="loading" @click="handleSubmit('formValidate')" style="width:140px;">保存</el-button>
+    <el-button type="text" @click="handleCancelAccount" :loading="loadingCancel">注销该账号</el-button>
   </el-form-item>
 </el-form>

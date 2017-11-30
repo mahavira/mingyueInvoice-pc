@@ -30,8 +30,6 @@
         <a href="/pc_client" target="_blank" class="item">明阅系统入口</a>
         <span class="cut">|</span>
         <a href="./question/index.html" target="_blank" class="item">常见问题</a>
-        <span class="cut">|</span>
-        <a href="/dbd_pdf/明阅电子发票助手-用户手册V1.0.doc" target="_blank" class="item">用户手册</a>
       </div>
     </div>
   </header>
@@ -284,23 +282,39 @@
   </div>
 
   <div class="footer">
-    <div class="footer-box">
+    <div class="footer-box qrcodeBox clearfix">
       <a href="javascript:;">
         <span>安卓版APP下载</span>
-        <img src="./images/qrcode-android.png" alt=""></a>
+        <img src="./images/qrcode-android.png" alt="" class="qrcode qrcode1 fl"></a>
       <a href="javascript:;">
         <span>IOS版APP下载</span>
-        <img src="./images/qrcode-ios.png" alt=""></a>
+        <img src="./images/qrcode-ios.png" alt="" class="qrcode qrcode2 fl"></a>
     </div>
     <p class="text">
         Copyright © 2012-2017 www.mydzfp.cn All Rights Reserved. 
         网站备案编号：京ICP备13008266号 北京栋邦达科技有限公司</p>
   </div>
-
+</style>
   <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
   <script>
     $(function () {
       $('#form').submit(function () {
+      var $qrcode = $('.footer-box img')
+        var $qrcode1 = $($qrcode[0])
+        var $qrcode2 = $($qrcode[1])
+        var qrcode1Img = $qrcode1.attr('src')
+        var qrcode2Img = $qrcode2.attr('src')
+        $qrcode.on('touchstart',function(){
+          var src = $(this).attr('src')
+          $qrcode.attr('src', src)
+        })
+        $(document).on('touchend ontouchcancel', function () {restoreQrcode()})
+        window.onblur = function () {restoreQrcode()}
+        window.onfocus = function () {restoreQrcode()}
+        var restoreQrcode = function () {
+          $qrcode1.attr('src',qrcode1Img)
+          $qrcode2.attr('src',qrcode2Img)
+        }
         var data = $("#form").serializeArray()
         var form = {}
         for (var i in data) {
@@ -370,6 +384,22 @@
           }
         }, function () {
         })
+
+        var $qrcode = $('.footer-box img')
+        var qrcode1Img = $qrcode.eq(0).attr('src')
+        var qrcode2Img = $qrcode.eq(1).attr('src')
+        $qrcode.on('touchstart',function(){
+          var index = $('.footer-box img').index($(this))
+          var index2 = index === 0 ? 1: 0
+          $qrcode.eq(index2).attr('src', index === 0 ? qrcode1Img : qrcode2Img)
+        })
+        var restoreQrcode = function () {
+          $qrcode.eq(0).attr('src',qrcode1Img)
+          $qrcode.eq(1).attr('src',qrcode2Img)
+        }
+        $(document).on('touchend ontouchcancel', restoreQrcode)
+        window.onblur = restoreQrcode
+        window.onfocus = restoreQrcode
     })
   </script>
 </body>

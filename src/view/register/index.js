@@ -25,11 +25,11 @@ export default {
     handleSubmit() {
       this.$refs['formValidate'].validate((valid) => {
         if (valid) {
-          // this.validateSmsCode()
-          this.$store.commit('set', {
-            userinfo: Object.assign({}, this.$store.state.userinfo, this.formValidate)
-          })
-          this.$router.push('/register-info')
+          this.validateSmsCode()
+          // this.$store.commit('set', {
+          //   userinfo: Object.assign({}, this.$store.state.userinfo, this.formValidate)
+          // })
+          // this.$router.push('/register-info')
         }
       })
     },
@@ -49,7 +49,7 @@ export default {
     },
     validateSmsCode() {
       this.loading = true
-      this.$http.post('app/xxxx', this.formValidate).then(({body}) => {
+      this.$http.post('app/login/checkCode', this.formValidate).then(({body}) => {
         if (body.res_code === 200) {
           this.$store.commit('set', {
             userinfo: Object.assign({}, this.$store.state.userinfo, this.formValidate)

@@ -59,20 +59,20 @@ export default {
     onSuccess (res, file, fileList) {
       this.$refs.upload.clearFiles()
       if (res.res_code != 200) {
-        this.$notify.error({
-          title: '上传失败',
-          message: res.res_data || '上传失败!'
+        this.$notify.success({
+          title: '成功',
+          message:  '提交成功!'
         })
         return 
       }
       this.$notify.success({
         title: '成功',
-        message: '上传成功'
+        message: '提交成功'
       })
     },
     onError (error, file, fileList) {
       this.$notify.error({
-        title: '上传失败',
+        title: '提交失败',
         message: '服务器无响应'
       })
       this.$refs.upload.clearFiles()

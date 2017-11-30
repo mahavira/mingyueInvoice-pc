@@ -140,7 +140,7 @@ export default {
       iframe.src = url || this.pdfUrl
     },
     dialogPrint (url = '') {
-      this.dialogPrintUrl = '/da/static/pdfjs/web/viewer.html?url=' + (url || this.pdfUrl)
+      this.dialogPrintUrl = './static/pdfjs/web/viewer.html?url=' + (url || this.pdfUrl)
       this.dialogVisible = true
     },
     /**
